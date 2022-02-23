@@ -1,0 +1,49 @@
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0 font-size-18">Chi tiết thông báo</h4>
+            <h1 id="getID" style="display: none;">{{deatil_email._id}}</h1>
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="./notifications">Thông báo</a></li>
+                    <li class="breadcrumb-item active">Chi tiết thông báo</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+<div class="row">
+    <div class="col-12">
+        <!--  Sidebar -->
+        <div class=" mb-3">
+
+            <div class="card">
+
+                <div class="card-body">
+                    <h4 class="font-size-16">Thông báo về đơn hàng : <span
+                            style="color:red">{{deatil_email.order_id.nanoId}}</span></h4>
+                    <p>Gửi tới {{deatil_email.user.fullname}}</p>
+                    <p><b>
+                            {{deatil_email.content}}
+                        </b>
+                        . Xem chi chi tiết đơn hàng: <a target="_blank"
+                            href="./view_detail?id={{deatil_email.order_id._id}}">bấm vào đây</a>
+                    </p>
+                    <p>Chúc bạn nhiều sức khỏe và thành công.</p>
+                    <p>Đội ngũ nhân viên Mubaha Thân gửi.</p>
+                    <hr />
+                    <a href="./notifications" class="btn btn-secondary waves-effect mt-4"><i
+                            class="mdi mdi-reply me-1"></i> Quay lại</a>
+                </div>
+            </div>
+        </div>
+        <!-- card -->
+    </div>
+    <!-- end Col -->
+</div>
+<!-- end row -->
+<script src="/assets/libs/jquery/jquery.min.js"></script>
+<script src="/js/update_read_notification.js"></script>

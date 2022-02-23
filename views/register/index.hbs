@@ -1,0 +1,264 @@
+<div class="row g-0">
+
+  <div class="col-xxl-4 col-lg-4 col-md-5">
+    <div class="auth-full-page-content d-flex p-sm-5 p-4">
+      <div class="w-100">
+        <div class="d-flex flex-column h-100">
+          <div class="mb-4 mb-md-3 text-center">
+            <a href="/" class="d-block auth-logo">
+              {{! <img src="/img/bg/logo-color.svg" alt="" height="50"> }}
+              <img src="/img/mubaha-free.png" alt="" height="50" />
+            </a>
+          </div>
+          <div class="auth-content my-auto">
+            <div class="text-center">
+              <h5 class="mb-0">Đăng ký tài khoản</h5>
+              <p class="text-muted mt-2">Tạo tài khoản miễn phí với Mubaha</p>
+            </div>
+            <div class="modal fade" id="ignismyModal" role="dialog">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                  </div>
+
+
+                  <div class="modal-body">
+
+                    <div class="thank-you-pop">
+                      <img src="/img/Green-Round-Tick.png" alt="" />
+                      <h1>Tạo tài khoản thành công</h1>
+                      <p>Bạn vui lòng xác thực tài khoản email</p>
+                    </div>
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <form
+              id="form"
+              class="needs-validation mt-4 pt-2"
+              novalidate
+              method="post"
+              action="#"
+              enctype="application/x-www-form-urlencoded"
+            >
+              <div class="form-floating form-floating-custom mb-4">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="input_username"
+                  name="fullname"
+                  placeholder="Nhập họ và tên"
+                  required
+                />
+                <div class="invalid-feedback">
+                  Vui lòng nhập họ và tên
+                </div>
+                <label for="input-username">Họ và tên</label>
+                <div class="form-floating-icon">
+                  <i data-feather="users"></i>
+                </div>
+              </div>
+
+              <div class="form-floating form-floating-custom mb-4">
+                <input
+                  type="phone"
+                  class="form-control"
+                  id="input_phone"
+                  name="phone"
+                  placeholder="Nhập số điện thoại"
+                  required
+                />
+                <div class="invalid-feedback">
+                  Vui lòng nhập số điện thoại
+                </div>
+                <label for="input-username">Số điện thoại</label>
+                <div class="form-floating-icon">
+                  <i data-feather="phone"></i>
+                </div>
+              </div>
+
+              <div class="form-floating form-floating-custom mb-4">
+                <input
+                  type="email"
+                  class="form-control"
+                  id="input_email"
+                  name="email"
+                  placeholder="Enter Email"
+                  required
+                />
+                <div class="invalid-feedback">
+                  Vui lòng nhập Email
+                </div>
+                <label for="input-email" id="check_email">Email</label>
+                <div class="form-floating-icon">
+                  <i data-feather="mail"></i>
+                </div>
+              </div>
+
+              <div class="form-floating form-floating-custom mb-4">
+                <input
+                  type="password"
+                  class="form-control"
+                  id="input_password"
+                  required
+                  data-pristine-required-message="Please Enter a password"
+                  data-pristine-pattern="/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/"
+                  data-pristine-pattern-message="Minimum 8 characters, at least one uppercase letter, one lowercase letter and one number"
+                  placeholder="Nhập mật khẩu"
+                  required
+                />
+                <div class="invalid-feedback">
+                  Vui lòng nhập mật khẩu
+                </div>
+                <label for="input-password">Mật khẩu</label>
+                <div class="form-floating-icon">
+                  <i data-feather="lock"></i>
+                </div>
+              </div>
+
+              <div class="form-floating form-floating-custom mb-4">
+                <input
+                  type="password"
+                  class="form-control"
+                  id="input_repassword"
+                  data-pristine-equals="#input-password"
+                  name="password"
+                  data-pristine-equals-message="Passwords don't match"
+                  placeholder="Enter User Name"
+                  required
+                  disabled="true"
+                />
+                <div class="invalid-feedback">
+                  Vui lòng nhập lại mật khẩu
+                </div>
+
+                <label for="input-username" id="check">Nhập lại mật khẩu</label>
+                <div class="form-floating-icon">
+                  <i data-feather="key"></i>
+                </div>
+              </div>
+              <br />
+              <div class="row mb-4">
+                <div class="col">
+                  <div class="form-check font-size-15">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="checkS"
+                    />
+                    <label class="form-check-label font-size-13" for="checkS">
+                      Hiển thị mật khẩu
+                    </label>
+                  </div>
+                </div>
+
+              </div>
+              <div class="mb-4">
+                <p class="mb-0">Bạn đồng ý với Mubaha về
+                  <a href="#" class="text-primary">Điều khoản sử dụng</a></p>
+              </div>
+              <div class="mb-3">
+                <button
+                  id="submit"
+                  class="btn btn-primary w-100 waves-effect waves-light"
+                  type="submit"
+                >Đăng ký ngay</button>
+              </div>
+            </form>
+
+            <div class="mt-5 text-center">
+              <p class="text-muted mb-0">Bạn đã có tài khoản?
+                <a href="/auth/login" class="text-primary fw-semibold">
+                  Đăng nhập
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end auth full page content -->
+  </div>
+  <!-- end col -->
+  <div class="col-xxl-8 col-lg-8 col-md-7">
+    <div class="auth-bg pt-md-5 p-4 d-flex">
+      <div class="bg-overlay"></div>
+      <ul class="bg-bubbles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+
+      <div class="row justify-content-center align-items-end">
+        <div class="col-xl-7">
+          <div class="p-0 p-sm-4 px-xl-0">
+            <div
+              id="reviewcarouselIndicators"
+              class="carousel slide"
+              data-bs-ride="carousel"
+            >
+              <div
+                class="carousel-indicators auth-carousel carousel-indicators-rounded justify-content-center mb-0"
+              >
+
+              </div>
+              <!-- end carouselIndicators -->
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <div class="testi-contain text-center text-white">
+                    <a class="d-block mt-4 fw-medium lh-base">
+                      <img
+                        src="/img/logo-light.svg"
+                        alt=""
+                        height="200"
+                        width="300"
+                      />
+                    </a>
+                    <i class="bx bxs-quote-alt-left text-success display-6"></i>
+                    <h4 class="mt-4 fw-medium lh-base text-white">
+                      “ Cùng với sự phát triển của thương mại điện tử, việc đặt
+                      mua hàng qua mạng đã trở thành một xu thế mới. Xu thế này
+                      được cả các nhà buôn, các cửa hàng bán lẻ và người tiêu
+                      dùng cá nhân hưởng ứng. Đáp ứng xu thế này, Mubaha.com
+                      cung cấp dịch vụ trung gian nhập hàng Trung Quốc từ các
+                      website thương mại điện tử hàng đầu Trung Quốc ”
+                    </h4>
+                  </div>
+                </div>
+              </div>
+              <!-- end carousel-inner -->
+            </div>
+            <!-- end review carousel -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end col -->
+</div>
+<!-- end row -->
+<!-- JAVASCRIPT -->
+<script src="/assets/libs/jquery/jquery.min.js"></script>
+<script src="/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/libs/metismenu/metisMenu.min.js"></script>
+<script src="/assets/libs/simplebar/simplebar.min.js"></script>
+<script src="/assets/libs/node-waves/waves.min.js"></script>
+<script src="/assets/libs/feather-icons/feather.min.js"></script>
+<!-- pace js -->
+<script src="/assets/libs/pace-js/pace.min.js"></script>
+<!-- validation init -->
+<script src="/assets/js/pages/validation.init.js"></script>
+<script src="/assets/js/pages/feather-icon.init.js"></script>
+<!-- pristine js -->
+<script src="/assets/libs/pristinejs/pristine.min.js"></script>
+
+<script src="/js/register.js"></script>

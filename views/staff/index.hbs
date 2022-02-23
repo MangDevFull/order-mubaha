@@ -1,0 +1,79 @@
+<!-- Start home page-->
+<div class="row">
+    <div class="col-12">
+        <p style="display: none;" id="getids">{{data._id}}</p>
+        <div class="modal fade " id="create_add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Lỗi</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h1 style="color: red">Đơn hàng đã được nhân viên khác tiếp nhận</h1>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                        <button type="button" id="oke" class="btn btn-primary">Đồng ý</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Tất cả các đơn hàng</h4>
+            </div>
+            <div class="card-body">
+                <table id="datatable" class="table table-bordered dt-responsive " style='border-spacing: 0px;'>
+                    <thead>
+                        <tr style="text-align:center;">
+                            <th>Ngày tạo</th>
+                            <th>ID</th>
+                            <th>Tên khách hàng</th>
+                            <th>Link sản phẩm</th>
+                            <th>Báo giá</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#if list_order}}
+                        {{#each list_order}}
+                        <tr>
+                            <td>{{formatDate this.createdAt}}</td>
+                            <td>{{this.nanoId}}</td>
+                            <td class="text-center">{{this.user.fullname}}</td>
+                            <td style="word-break: break-all">
+                                <ul>
+                                    {{#each this.products}}
+                                    <li style=" overflow: auto;">
+                                        <a target="_blank" href="{{this.link}}">
+                                            <p style="width: 300px;
+                                            overflow: hidden;
+                                            white-space: nowrap; 
+                                            text-overflow: ellipsis;">{{this.link}}
+                                            </p>
+                                        </a>
+                                    </li>
+                                    {{/each}}
+                                </ul>
+                            </td>
+                            <td>
+                                <button class="btn btn-success waves-light click " title="{{this._id}}">
+                                    <i class="mdi mdi-pencil font-size-14"></i> Báo giá
+                                </button>
+                            </td>
+                        </tr>
+                        {{/each}}
+                        {{else}}
+                        <h5 style="color:red">Hiện tại chưa có đơn hàng nào</h5>
+                        {{/if}}
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End home page -->
+<script src="/assets/libs/jquery/jquery.min.js"></script>
+<script src="/js/index.staff.js"></script>

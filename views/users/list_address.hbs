@@ -1,0 +1,120 @@
+<!--Start confirm pending page-->
+<div class="row">
+    <div class="col-12">
+        <p style="display: none;" id="user">{{data._id}}</p>
+        <div class="modal fade " id="create_add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">+ Tạo địa chỉ mới</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="add_address">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label for="productname">Họ và tên</label>
+                                        <input id="fullname" name="productname" type="text"
+                                            class="form-control productname">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label for="productname">Số điện thoại</label>
+                                        <input id="phone" name="productname" type="text"
+                                            class="form-control productname">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="mb-3">
+                                        <label for="choices-single-groups"
+                                            class="form-label font-size-13 text-muted">Tỉnh/Thành phố</label>
+                                        <select class="form-control" data-trigger name="choices-single-groups"
+                                            id="city">
+                                            <option value="">Chọn một tỉnh/thành phố</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="mb-3">
+                                        <label for="choices-single-groups"
+                                            class="form-label font-size-13 text-muted">Quận/Huyện</label>
+                                        <select class="form-control" data-trigger name="choices-single-groups"
+                                            id="district">
+                                            <option value="">Chọn một quận/huyện</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="mb-3">
+                                        <label for="choices-single-groups"
+                                            class="form-label font-size-13 text-muted">Xã/Phường</label>
+                                        <select class="form-control" data-trigger name="choices-single-groups"
+                                            id="ward">
+                                            <option value="">Chọn một xã/phường</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <label for="message-text" class="col-form-label">Địa chỉ chi tiết</label>
+                                    <textarea class="form-control" id="address"></textarea>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                        <button type="button" id="create_local" class="btn btn-primary">Tạo</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Danh sách địa chỉ giao hàng</h4>
+                <button style="float: right" type="button" class="btn btn-warning" data-bs-toggle="modal"
+                    data-bs-target="#create_add" data-bs-whatever="@getbootstrap">Tạo địa chỉ mới</button>
+            </div>
+            <div class="card-body">
+                <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100">
+                    <thead>
+                        <tr style="text-align:center;">
+                            <th>Ngày tạo mới</th>
+                            <th>Họ và tên</th>
+                            <th>Số điện thoại</th>
+                            <th>Xem chi tiết</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#if data.address}}
+                        {{#each data.address}}
+                        <tr style="text-align:center;">
+                            <td>{{formatDate this.createdAt format}}</td>
+                            <td>{{this.fullname}}</td>
+                            <td>{{this.phone}}</td>
+                            <td>
+                                <a class="btn btn-success waves-light " href="./view_detail_address_id={{this._id}}">
+                                    <i class=" fas fa-bullseye font-size-14"></i> Xem chi tiết
+                                </a>
+                            </td>
+                        </tr>
+                        {{/each}}
+                        {{else}}
+                        <h5 style="color:red">Bạn chưa có địa chỉ giao hàng nào</h5>
+                        {{/if}}
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--End confirm pending page-->
+<script src="/assets/libs/jquery/jquery.min.js"></script>
+<script src="/js/axios.min.js"></script>
+<script src="/js/address.js"></script>

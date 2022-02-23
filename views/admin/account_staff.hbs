@@ -1,0 +1,219 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="modal fade" id="ignismyModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    </div>
+
+                    <div class="modal-body">
+
+                        <div class="thank-you-pop">
+                            <img src="/img/Green-Round-Tick.png" alt="">
+                            <h1>Tạo tài khoản thành công</h1>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <h5 class="card-title">Danh sách tài khoản nhân viên <span
+                                    class="text-muted fw-normal ms-2"></span>
+                            </h5>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
+                            <div class="modal fade " id="create_account" tabindex="-1"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">+ Thêm tài khoản mới cho nhân
+                                                viên</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form id="add_address">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="mb-3">
+                                                            <label for="email">Email</label>
+                                                            <input id="email" name="email" type="email"
+                                                                class="form-control email">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="mb-3">
+                                                            <label for="fullname">Họ và tên</label>
+                                                            <input id="fullname" name="fullname" type="phone"
+                                                                class="form-control fullname">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="mb-3">
+                                                            <label for="phone">Số điện thoại</label>
+                                                            <input id="phone" name="phone" type="text"
+                                                                class="form-control phone">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <label for="#">Giới tính</label>
+                                                        <div class="d-flex " style="margin-top: 10px;">
+                                                            <div class="form-check mb-3" style="margin-right: 5px;">
+                                                                <input class="form-check-input" type="radio"
+                                                                    value="male" name="gender" id="male">
+                                                                <label class="form-check-label" for="male">
+                                                                    Nam
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check mb-3" style="margin-right: 5px;">
+                                                                <input class="form-check-input" type="radio"
+                                                                    value="female" name="gender" id="female">
+                                                                <label class="form-check-label" for="female">
+                                                                    Nữ
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check mb-3" style="margin-right: 5px;">
+                                                                <input class="form-check-input" type="radio"
+                                                                    value="other" name="gender" id="other">
+                                                                <label class="form-check-label" for="other">
+                                                                    Khác
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="mb-3">
+                                                            <label for="example-date-input"
+                                                                class="form-label">Ngày sinh</label>
+                                                            <input class="form-control"
+                                                                id="date" type="date" >
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <div class="mb-3">
+                                                            <label for="address">Địa chỉ chi tiết</label>
+                                                            <input id="add" name="address" type="text"
+                                                                class="form-control ">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12">
+                                                        <div class="mb-3">
+                                                            <label for="choices-single-groups"
+                                                                class="form-label font-size-13 text-muted">Tỉnh/Thành
+                                                                phố</label>
+                                                            <select class="form-control" data-trigger
+                                                                name="choices-single-groups" id="city">
+                                                                <option value="">Chọn một tỉnh/thành phố</option>
+
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12">
+                                                        <div class="mb-3">
+                                                            <label for="choices-single-groups"
+                                                                class="form-label font-size-13 text-muted">Quận/Huyện</label>
+                                                            <select class="form-control" data-trigger
+                                                                name="choices-single-groups" id="district">
+                                                                <option value="">Chọn một quận/huyện</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12">
+                                                        <div class="mb-3">
+                                                            <label for="choices-single-groups"
+                                                                class="form-label font-size-13 text-muted">Xã/Phường</label>
+                                                            <select class="form-control" data-trigger
+                                                                name="choices-single-groups" id="ward">
+                                                                <option value="">Chọn một xã/phường</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Hủy</button>
+                                            <button type="button" id="create_staff" class="btn btn-primary">Tạo</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <button style="float: right" type="button" class="btn btn-warning"
+                                    data-bs-toggle="modal" data-bs-target="#create_account"
+                                    data-bs-whatever="@getbootstrap"><i class="bx bx-plus me-1"></i>Thêm tài khoản mới
+                                </button>
+                                {{!-- <a href="#" class="btn btn-success"><i class="bx bx-plus me-1"></i> Thêm mới tài
+                                    khoản</a> --}}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- end row -->
+                <div class="table-responsive mb-4">
+                    <table class="table align-middle datatable dt-responsive table-check nowrap"
+                        style="border-collapse: collapse; border-spacing: 0 8px; width: 100%;">
+                        <thead>
+                            <tr>
+                                <th scope="col">Email</th>
+                                <th scope="col">Tên</th>
+                                <th scope="col">Số điện thoại</th>
+                                <th scope="col">Giới tính</th>
+                                <th style="width: 100px; min-width: 80px;">Xem </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each list_staff}}
+                            <tr>
+                                <td>{{ this.email }}</td>
+                                <td>
+                                    {{ this.fullname }}
+                                </td>
+                                <td>
+                                    {{ this.phone }}
+                                </td>
+                                <td>
+                                    {{#ifEquals this.gender "male"}}
+                                    Nam
+                                    {{/ifEquals}}
+                                    {{#ifEquals this.gender "female"}}
+                                    Nữ
+                                    {{/ifEquals}}
+                                    {{#ifEquals this.gender "other"}}
+                                    Khác
+                                    {{/ifEquals}}
+                                </td>
+                                <td>
+                                    <div class="d-flex">
+                                        <a class="btn btn-success waves-light " href="view_detal_staff_id={{this._id}}">
+                                            <i class=" fas fa-bullseye font-size-14"></i> Xem
+                                        </a>
+
+                                    </div>
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                    <!-- end table -->
+                </div>
+                <!-- end table responsive -->
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/assets/libs/jquery/jquery.min.js"></script>
+<script src="/js/axios.min.js"></script>
+<script src="/js/staff_mn.js"></script>

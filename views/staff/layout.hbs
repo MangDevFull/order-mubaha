@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Order Mubaha || {{title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="shortcut icon" href="/img/icon-favico-goc.svg">
+
+    <!-- preloader css -->
+    <link rel="stylesheet" href="/assets/css/preloader.min.css" type="text/css" />
+    <link rel="stylesheet" href="/css/register.css" type="text/css" />
+
+    <!-- Bootstrap Css -->
+    <link href="/assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+
+    <link href="/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" <!-- Bootstrap
+        Css -->
+    <link href="/assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+    <style>
+        .text-wrap{
+    white-space:normal;
+}
+.width-200{
+    width:200px;
+}
+    .center {
+margin: auto;
+width: 60%;
+padding: auto;
+},
+.thank-you-pop{
+	width:100%;
+ 	padding:20px;
+	text-align:center;
+}
+.thank-you-pop img{
+	width:76px;
+	height:auto;
+	margin:0 auto;
+	display:block;
+	margin-bottom:25px;
+}
+
+.thank-you-pop h1{
+	font-size: 42px;
+    margin-bottom: 25px;
+	color:#5C5C5C;
+}
+.thank-you-pop p{
+	font-size: 20px;
+    margin-bottom: 27px;
+ 	color:#5C5C5C;
+}
+.thank-you-pop h3.cupon-pop{
+	font-size: 25px;
+    margin-bottom: 40px;
+	color:#222;
+	display:inline-block;
+	text-align:center;
+	padding:10px 20px;
+	border:2px dashed #222;
+	clear:both;
+	font-weight:normal;
+}
+.thank-you-pop h3.cupon-pop span{
+	color:#03A9F4;
+}
+.thank-you-pop a{
+	display: inline-block;
+    margin: 0 auto;
+    padding: 9px 20px;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 14px;
+    background-color: #8BC34A;
+    border-radius: 17px;
+}
+.thank-you-pop a i{
+	margin-right:5px;
+	color:#fff;
+}
+#ignismyModal .modal-header{
+    border:0px;
+}
+/*--thank you pop ends here--*/
+    </style>
+</head>
+
+<body data-topbar="dark">
+
+    <!-- <body data-layout="horizontal"> -->
+
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+        <header id="page-topbar">
+            <div class="navbar-header">
+                <div class="d-flex">
+                    <!-- LOGO -->
+                    <div class="navbar-brand-box">
+                        <a href="/" class="logo logo-dark">
+                            <span class="logo-sm">
+                                <img src="/img/bg/order_light.png" alt="" height="24">
+                            </span>
+                            <span class="logo-lg">
+                                <img src="/img/bg/order_light.png" alt="" height="40"> <span
+                                    class="logo-txt"></span>
+                            </span>
+                        </a>
+                        <a href="/" class="logo logo-light">
+                            <span class="logo-sm">
+                                <img src="/img/bg/mubaha-order-free.png" alt="" height="24">
+                            </span>
+                            <span class="logo-lg">
+                                <img src="/img/bg/mubaha-order-free.png" alt="" height="40"> <span
+                                    class="logo-txt"></span>
+                            </span>
+                        </a>
+                    </div>
+
+                    <button type="button" class="btn btn-sm px-3 font-size-16 header-item" id="vertical-menu-btn">
+                        <i class="fa fa-fw fa-bars"></i>
+                    </button>
+
+                    <!-- App Search-->
+
+                </div>
+                <marquee class="marquee" style="width: 800px; " behavior="alternate" scrollamount="6">
+                    Tỷ giá quy đổi tiền tệ được cập nhật vào <a style="color:#fff; text-transform:capitalize;">{{formatDateViewDetail currency.updatedAt}}</a> là: <a style="color:#fff">1¥ = {{currency.price}} VNĐ</a> 
+                </marquee>
+                <div class="d-flex">
+
+                    <div class="dropdown d-inline-block d-lg-none ms-2">
+                        <button type="button" class="btn header-item" id="page-header-search-dropdown"
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i data-feather="search" class="icon-lg"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
+                            aria-labelledby="page-header-search-dropdown">
+
+                            <form class="p-3">
+                                <div class="form-group m-0">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Search ..."
+                                            aria-label="Search Result">
+
+                                        <button class="btn btn-primary" type="submit"><i
+                                                class="mdi mdi-magnify"></i></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="dropdown d-none d-sm-inline-block">
+                        <button type="button" class="btn header-item" id="mode-setting-btn">
+                            <i data-feather="moon" class="icon-lg layout-mode-dark"></i>
+                            <i data-feather="sun" class="icon-lg layout-mode-light"></i>
+                        </button>
+                    </div>
+                    <div class="dropdown d-inline-block">
+                        <button type="button" class="btn header-item bg-soft-light border-start border-end"
+                            id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                           <i data-feather="user" class="icon-lg"></i>
+                            <span class="d-none d-xl-inline-block ms-1 fw-medium">{{data.fullname}}</span>
+                            <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <!-- item-->
+                            <a class="dropdown-item" href="./profile"><i
+                                    class="mdi mdi-face-profile font-size-16 align-middle me-1"></i> Thông tin</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/auth/logout"><i
+                                    class="mdi mdi-logout font-size-16 align-middle me-1"></i> Đăng xuất</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            
+        </header>
+
+        <!-- ========== Left Sidebar Start ========== -->
+        <div class="vertical-menu">
+
+            <div data-simplebar class="h-100">
+
+                <!--- Sidemenu -->
+                <div id="sidebar-menu">
+                    <!-- Left Menu Start -->
+                    <ul class="metismenu list-unstyled" id="side-menu">
+                        <li class="menu-title" data-key="t-menu">Menu</li>
+                        <li>
+                            <a href="./">
+                                <i data-feather="home"></i>
+                                <span class="badge rounded-pill bg-soft-success text-success float-end"></span>
+                                <span data-key="t-dashboard">Trang chủ</span>
+                            </a>
+                        </li>
+                        <li class="menu-title" data-key="">Quản lý đơn đặt hàng</li>
+                        <li>
+                            <a href="./my_order">
+                                <i class="fas fa-list"></i>
+                                <span data-key="t-chat">Danh sách của tôi</span>
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </div>
+                <!-- Sidebar -->
+            </div>
+        </div>
+        <div class="main-content">
+            <div class="page-content">
+                <div class="container-fluid">
+                    {{{body}}}
+                </div>
+                <!-- end main content-->
+            </div>
+        </div>
+<div class="rightbar-overlay"></div>
+
+        <script src="/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="/assets/libs/metismenu/metisMenu.min.js"></script>
+        <script src="/assets/libs/simplebar/simplebar.min.js"></script>
+        <script src="/assets/libs/node-waves/waves.min.js"></script>
+        <script src="/assets/libs/feather-icons/feather.min.js"></script>
+        <!-- pace js -->
+        <script src="/assets/libs/pace-js/pace.min.js"></script>
+
+        <!-- apexcharts -->
+        <script src="/assets/libs/apexcharts/apexcharts.min.js"></script>
+
+        <!-- Plugins js-->
+        <script src="/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js"></script>
+        <script src="/assets/libs/admin-resources/jquery.vectormap/maps/jquery-jvectormap-world-mill-en.js"></script>
+        <!-- dashboard init -->
+        <script src="/assets/js/pages/dashboard.init.js"></script>
+
+        <script src="/assets/js/app.js"></script>
+        
+
+        <!--  datatable js -->
+        <script src="/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+        <script src="/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+        <!-- Buttons examples -->
+        <script src="/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+        <script src="/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+        <script src="/assets/libs/jszip/jszip.min.js"></script>
+        <script src="/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+        <script src="/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+        <script src="/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+        <script src="/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+        <script src="/assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+
+        <!-- Responsive examples -->
+        <script src="/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+        <script src="/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+
+        <!-- Datatable init js -->
+        <script src="/assets/js/pages/datatables.init.js"></script>
+
+        <!-- choices js -->
+        <script src="/assets/libs/choices.js/public//assets/scripts/choices.min.js"></script>
+
+        <!-- pace js -->
+        <script src="/assets/libs/pace-js/pace.min.js"></script>
+
+        <!-- choices js -->
+        <script src="/assets/libs/choices.js/public//assets/scripts/choices.min.js"></script>
+
+
+        <!-- twitter-bootstrap-wizard js -->
+        <script src="/assets/libs/twitter-bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+        <script src="/assets/libs/twitter-bootstrap-wizard/prettify.js"></script>
+
+        <!-- form wizard init -->
+        <script src="/assets/js/pages/form-wizard.init.js"></script>
+
+</body>
+
+</html>

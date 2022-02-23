@@ -1,0 +1,278 @@
+<!--Start profile page-->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <p id="getid" style="display: none">{{data._id}}</p>
+                <p id="getemail" style="display: none">{{data.email}}</p>
+                <p id="getfullname" style="display: none">{{data.fullname}}</p>
+                <h1 class="card-title">Hồ sơ của khách hàng {{data.fullname}}</h1>
+                <p class="card-description">Quản lý thông tin hồ sơ để bảo mật tài khoản</p>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-8 col-md-6">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <div class="form-group mb-3">
+                                    <label>Họ và tên</label>
+                                    <input type="text" name="us" value="{{data.fullname}}" readonly="true" id="fullname"
+                                        class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-md-6">
+                                <div class="mb-3">
+                                    <label for="example-date-input" class="form-label">Ngày sinh</label>
+                                    <input class="form-control" value="{{formatDateOfBirth data.date_of_birth}}"
+                                        readonly="true" id="date" type="date" id="example-date-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-6 col-md-6">
+                                <div class="form-group mb-3">
+                                    <label>Số điện thoại</label>
+                                    <input class="form-control" value="{{data.phone}}" readonly="true" type="tel"
+                                        value="" id="phone">
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-md-6">
+                                <div class="form-group mb-3">
+                                    <label>Email</label>
+                                    <input type="email" value="{{data.email}}"
+                                        data-pristine--message="Vui lòng nhập email" readonly="true" disabled="false"
+                                        class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-md-2">
+                                <label>Giới tính: </label>
+                            </div>
+
+                            <div class="col-md-10">
+
+                                <p style="display: none;" id="gend">{{data.gender}}</p>
+                                <div class="d-flex">
+                                    <div class="form-check mb-3" style="margin-right: 5px;">
+                                        <input class="form-check-input" type="radio" value="male" name="gender"
+                                            id="male">
+                                        <label class="form-check-label" for="male">
+                                            Nam
+                                        </label>
+                                    </div>
+                                    <div class="form-check mb-3" style="margin-right: 5px;">
+                                        <input class="form-check-input" type="radio" value="female" name="gender"
+                                            id="female">
+                                        <label class="form-check-label" for="female">
+                                            Nữ
+                                        </label>
+                                    </div>
+                                    <div class="form-check mb-3" style="margin-right: 5px;">
+                                        <input class="form-check-input" type="radio" value="other" name="gender"
+                                            id="other">
+                                        <label class="form-check-label" for="other">
+                                            Khác
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{#if data.updatedAt}}
+                        <p>Ngày cập nhật gần nhất: {{formatDateViewDetail data.updatedAt}} </p>
+                        {{else}}
+                        <p style="color: orange">Thông tin chưa được cập nhật lần nào</p>
+                        {{/if}}
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <p style="text-align:center;" class="form-check-label">Ảnh đại diện</p>
+                        <br>
+                        <div class="flex-shrink-0">
+                            <div class="avatar center">
+                                <img src="/assets/images/users/avatar-3.jpg" alt=""
+                                    class="img-fluid rounded-circle d-block img-thumbnail  ">
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <!-- end row -->
+            </div>
+            <!-- end col -->
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Danh sách địa chỉ giao hàng</h4>
+            </div>
+            <div class="card-body">
+                <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100">
+                    <thead>
+                        <tr style="text-align:center;">
+                            <th>Ngày tạo mới</th>
+                            <th>Họ và tên</th>
+                            <th>Số điện thoại</th>
+                            <th>Xem chi tiết</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#if data.address}}
+                        {{#each data.address}}
+                        <tr style="text-align:center;">
+                            <td>{{formatDate this.createdAt format}}</td>
+                            <td>{{this.fullname}}</td>
+                            <td>{{this.phone}}</td>
+                            <td style=" overflow: auto;text-align: left;">
+                                {{this.ad}}, {{this.ward}}, {{this.district}}, {{this.city}}
+                            </td>
+                        </tr>
+                        {{/each}}
+                        {{else}}
+                        <h5 style="color:red">Khách hàng chưa có địa chỉ giao hàng nào</h5>
+                        {{/if}}
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Tất cả các đơn hàng</h4>
+            </div>
+            <div class="card-body">
+                <table id="datatable_order" class="table table-bordered dt-responsive  nowrap w-100">
+                    <thead>
+                        <tr style="text-align:center;">
+                            <th>ID</th>
+                            <th>Ngày tạo</th>
+                            <th>Link sản phẩm</th>
+                            <th>Trạng thái giao hàng</th>
+                            <th>Trạng thái thanh toán</th>
+                            <th>Xem</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#if list_order}}
+                        {{#each list_order}}
+                        <tr style="text-align:center;">
+                            <td>{{this.nanoId}}</td>
+                            <td>{{formatDate this.createdAt format}}</td>
+                            <td style="word-break: break-all">
+                                <ul>
+                                    {{#each this.products}}
+                                    <li style=" overflow: auto;text-align: left;">
+                                        <a href="{{this.link}}">
+                                            <p style="width: 140px;
+    overflow: hidden;
+    white-space: nowrap; 
+    text-overflow: ellipsis;">{{this.link}}</p>
+                                        </a>
+                                    </li>
+                                    {{/each}}
+                                </ul>
+                            </td>
+                            <td class="{{this.status_checkout}}"></td>
+                            <td class="{{this.status}}"></td>
+                            <td>
+                                <a class="btn btn-success waves-light " target="_blank"
+                                    href="./view_detail?id={{this._id}}">
+                                    <i class=" fas fa-bullseye font-size-14"></i> Xem
+                                </a>
+                            </td>
+                        </tr>
+                        {{/each}}
+                        {{else}}
+                        <h5 style="color:red">Khách hàng chưa có đơn hàng nào </h5>
+                        {{/if}}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <!-- Static Backdrop modal Button -->
+         {{#ifEquals data.isBlock false}}
+        <button type="button" class="btn btn-danger waves-effect waves-light" data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop">
+            Khóa khách hàng
+        </button>
+          {{/ifEquals}}
+      {{#ifEquals data.isBlock true}}
+        <button type="button" class="btn btn-success waves-effect waves-light" data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop1">
+            Mở khóa tài khoản khách hàng
+        </button>
+          {{/ifEquals}}
+        <!-- Static Backdrop Modal -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Hãy chú ý</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Người dùng sẽ không thể đăng nhập bạn có muốn chặn người dùng lại không</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Hủy</button>
+                        <button type="button" class="btn btn-danger" id="block">Khóa</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Hãy chú ý</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Bạn sẽ mở khóa cho tài khoàn đó. Bạn có muốn mở không?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Hủy</button>
+                        <button type="button" class="btn btn-success" id="unblock">Mở khóa</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade bs-example-modal-lg" id="show_success" tabindex="-1" role="dialog"
+            aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myLargeModalLabel">Chặn thành công khách hàng</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p class="mb-0">Đang quay lại trang quản trị khách hàng</p>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        <div class="modal fade bs-example-modal-lg" id="show_success_unlock" tabindex="-1" role="dialog"
+            aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myLargeModalLabel">Mở khóa thành công khách hàng</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p class="mb-0">Đang tải lại trang</p>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    </div>
+</div>
+
+<!-- end profile page -->
+<script src="/assets/libs/jquery/jquery.min.js"></script>
+<script src="/js/status.js"></script>
+<script src="/js/status_checkout.js"></script>
+<script src="/js/profile.user.js"></script>

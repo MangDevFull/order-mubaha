@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+
+    <title>Order Mubaha || {{title}}</title>
+    {{!--
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> --}}
+    {{!-- <meta http-equiv="Content-Security-Policy"
+        content="default-src *; style-src 'self' http://* 'unsafe-inline'; script-src 'self' http://* 'unsafe-inline' 'unsafe-eval' http://127.0.0.1:5000/api/v1/resources/price" /> --}}
+    <!-- App favicon -->
+
+    <meta
+    http-equiv="Content-Security-Policy"
+    content="script-src 'self' 'unsafe-inline' 'unsafe-eval' http://localhost:3002/ http://127.0.0.1:5000/api/v1/resources/price;
+            "
+     />
+
+    <link rel="shortcut icon" href="/img/icon-favico-goc.svg">
+
+    <!-- preloader css -->
+    <link rel="stylesheet" href="/assets/css/preloader.min.css" type="text/css" />
+    <link rel="stylesheet" href="/css/register.css" type="text/css" />
+
+    <!-- Bootstrap Css -->
+    <link href="/assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+
+    <link href="/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" /> <!-- Bootstrap
+        Css -->
+    <link href="/assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+    <style>
+        .center {
+            margin: auto;
+            width: 60%;
+            padding: auto;
+        }
+
+        @media (max-width: 992px) {
+            .currency {
+                width: 100% !important;
+
+                text-align: center
+
+
+            }
+        }
+    </style>
+</head>
+
+<body data-layout="horizontal" data-topbar="dark">
+    <a href=""></a>
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+        <header id="page-topbar">
+            <div class="navbar-header">
+                <div class="d-flex">
+                    <!-- LOGO -->
+                    <div class="navbar-brand-box">
+                        <a class="logo logo-dark">
+                            <span class="logo-sm">
+                                <img src="/img/bg/order_light.png" alt="" height="24">
+                            </span>
+                            <span class="logo-lg">
+                                <img src="/img/bg/order_light.png" alt="" height="24"> <span class="logo-txt"></span>
+                            </span>
+                        </a>
+                        <a class="logo logo-light">
+                            <span class="logo-sm">
+                                <img src="/img/bg/mubaha-order-free.png" alt="" height="24">
+                            </span>
+                            <span class="logo-lg">
+                                <a href="/">
+                                <img src="/img/bg/mubaha-order-free.png" alt="" height="40"> <span class="logo-txt"></span>
+                                </a>
+                            </span>
+                        </a>
+                    </div>
+
+                    <button type="button"
+                        class="btn btn-sm px-3 font-size-16 d-lg-none header-item waves-effect waves-light"
+                        data-bs-toggle="collapse" data-bs-target="#topnav-menu-content">
+                        <i class="fa fa-fw fa-bars"></i>
+                    </button>
+
+                    <!-- App Search-->
+
+                </div>
+                <div class="d-flex">
+                    {{!-- Notifications --}}
+                    <div class="dropdown d-inline-block">
+                        <button type="button" class="btn header-item noti-icon position-relative"
+                            id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            <i data-feather="bell" class="icon-lg"></i>
+                            <span class="badge bg-danger rounded-pill">{{count_message}}</span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
+                            aria-labelledby="page-header-notifications-dropdown">
+                            <div class="p-3">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <h6 class="m-0" style="border-bottom: 1px solid black;"> Thông báo </h6>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div data-simplebar="" style="max-height: 230px;">
+                                {{#if notification_list}}
+                                {{#each notification_list}}
+                                <a href="./view_detail?id={{this.order_id._id}}" title="{{this._id}}"
+                                    class="text-reset notification-item click">
+                                    <div class="d-flex notification-{{this.is_read}}"
+                                        style="border-bottom: 1px solid #cacfcc;">
+                                        <div class="flex-grow-1">
+                                            <h6 class="mb-1">Gửi thông báo về đơn hàng<sapn
+                                                    style="color:rgb(168, 54, 54)"> {{this.order_id.nanoId}}</sapn>
+                                            </h6>
+                                            <div class="font-size-13 text-muted">
+                                                <p class="mb-1">{{this.content}}</p>
+                                                <p class="mb-0"><i class="mdi mdi-clock-outline"></i>
+                                                    <span>{{formatDateNotification this.createdAt}}</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                                {{/each}}
+                                {{else}}
+                                <div class="d-flex">
+                                    <div class="flex-grow-1">
+
+                                        <h6 class="mb-1">Bạn chưa có thông báo nào nào</h6>
+
+                                    </div>
+                                </div>
+                                {{/if}}
+                            </div>
+                            <div class="p-2 border-top d-grid">
+                                <a class="btn btn-sm btn-link font-size-14 text-center" href="./notifications">
+                                    <i class="mdi mdi-arrow-right-circle me-1"></i> <span>Xem nhiều hơn..</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {{!-- end Notifications --}}
+
+                    {{!-- layout - mode --}}
+                    <div class="dropdown d-none d-sm-inline-block">
+                        <button type="button" class="btn header-item" id="mode-setting-btn">
+                            <i data-feather="moon" class="icon-lg layout-mode-dark"></i>
+                            <i data-feather="sun" class="icon-lg layout-mode-light"></i>
+                        </button>
+                    </div>
+                    {{!--end-layout - mode --}}
+                    <div class="dropdown d-inline-block">
+                        <button type="button" class="btn header-item bg-soft-light border-start border-end"
+                            id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            <i data-feather="user" class="icon-lg"></i>
+                            <span class="d-none d-xl-inline-block ms-1 fw-medium">{{data.fullname}}</span>
+                            <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <!-- item-->
+                            <a class="dropdown-item" href="./profile"><i
+                                    class="mdi mdi-face-profile font-size-16 align-middle me-1"></i>Thông tin tài
+                                khoản</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="./address"><i
+                                    class="mdi mdi-location-enter font-size-16 align-middle me-1"></i>Thông tin giao
+                                hàng</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/auth/logout"><i
+                                    class="mdi mdi-logout font-size-16 align-middle me-1"></i> Đăng xuất</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="topnav">
+            <div class="container-fluid">
+
+                <nav class="navbar navbar-light navbar-expand-lg topnav-menu">
+                    <div class="collapse navbar-collapse" id="topnav-menu-content">
+                        <ul class="navbar-nav">
+
+                            <li class="nav-item">
+                                <a class="nav-link dropdown-toggle arrow-none" href="./create" id="topnav-dashboard"
+                                    role="button">
+                                    <i data-feather="plus-circle"></i><span data-key="t-dashboard">Tạo đơn hàng</span>
+                                </a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle arrow-none" href="./list_order" id="drop"
+                                    role="button">
+                                    <i data-feather="grid"></i><span data-key="t-apps">Các đơn hàng</span>
+                                </a>
+
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle arrow-none" href="../support" id="topnav-dashboard"
+                                    role="button" target="_blank">
+                                    <i data-feather="box"></i><span data-key="t-dashboard">Hỗ trợ</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <a class="currency" >
+                        Tỷ giá quy đổi tiền tệ ngày hôm nay là: 1¥ = {{currency.price}} VNĐ
+                    </a>
+
+
+                </nav>
+            </div>
+
+
+        </div>
+        <div class="main-content">
+            <div class="page-content">
+                <div class="container-fluid">
+                    {{{body}}}
+                </div>
+            </div>
+        </div>
+        <!-- /Right-bar -->
+        <!-- Right bar overlay-->
+        <script src="/js/notification.js"></script>
+        <div class="rightbar-overlay"></div>
+
+        <script src="/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="/assets/libs/metismenu/metisMenu.min.js"></script>
+        <script src="/assets/libs/simplebar/simplebar.min.js"></script>
+        <script src="/assets/libs/node-waves/waves.min.js"></script>
+        <script src="/assets/libs/feather-icons/feather.min.js"></script>
+        <!-- pace js -->
+        <script src="/assets/libs/pace-js/pace.min.js"></script>
+
+        <!-- apexcharts -->
+        <script src="/assets/libs/apexcharts/apexcharts.min.js"></script>
+
+        <!-- Plugins js-->
+        <script src="/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js"></script>
+        <script src="/assets/libs/admin-resources/jquery.vectormap/maps/jquery-jvectormap-world-mill-en.js"></script>
+        <!-- dashboard init -->
+        <script src="/assets/js/pages/dashboard.init.js"></script>
+
+        <script src="/assets/js/app.js"></script>
+
+
+        <!--  datatable js -->
+        <script src="/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+        <script src="/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+        <!-- Buttons examples -->
+        <script src="/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+        <script src="/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+        <script src="/assets/libs/jszip/jszip.min.js"></script>
+        <script src="/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+        <script src="/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+        <script src="/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+        <script src="/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+        <script src="/assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+
+        <!-- Responsive examples -->
+        <script src="/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+        <script src="/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+
+        <!-- Datatable init js -->
+        <script src="/assets/js/pages/datatables.init.js"></script>
+
+        <!-- choices js -->
+        <script src="/assets/libs/choices.js/public//assets/scripts/choices.min.js"></script>
+
+        <!-- pace js -->
+        <script src="/assets/libs/pace-js/pace.min.js"></script>
+
+        <!-- choices js -->
+        <script src="/assets/libs/choices.js/public//assets/scripts/choices.min.js"></script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,274 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h3>Tạo đơn hàng mới ngay nào</h3>
+                <h1 style="display: none;" id="getPrice">{{currency.price}}</h1>
+                <p style="display: none;" id="user">{{ data._id }}</p>
+            </div>
+        </div>
+        <!--Start order list -->
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title">1. Điền link các sản phẩm </h1>
+                <p class="card-title-desc">Gắn link , chọn số lượng và điền mô tả</p>
+            </div>
+            <!--Modal-->
+            <div class="modal fade bs-example-modal-lg" id="show_modal" tabindex="-1" role="dialog"
+                aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="myLargeModalLabel">Xin hãy chú ý</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="mb-0">Bạn đang không có sản phẩm nào</p>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+            <div class="modal fade bs-example-modal-lg" id="show_no_address" tabindex="-1" role="dialog"
+                aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="myLargeModalLabel">Xin hãy chú ý</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="mb-0">Bạn chưa điền địa chỉ cho đơn hàng</p>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+            <div class="modal fade" id="ignismyModal" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        </div>
+
+                        <div class="modal-body">
+
+                            <div class="thank-you-pop">
+                                <img src="/img/Green-Round-Tick.png" alt="">
+                                <h1>Tạo đơn hàng thành công</h1>
+                                <p>Bạn sẽ sớm nhận được thông báo của chúng tôi</p>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div id="add_order">
+                    <div class="row">
+                        <div class="col-lg-11">
+                            <form class="form_order">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="mb-6">
+                                            <label for="productname">Link sản phẩm</label>
+                                            <input id="productname" name="productname" type="text" class="form-control productname">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <div class="mb-3">
+                                            <label for="number_product">Số lượng</label>
+                                            <input id="number_product" name="number_product" type="number"
+                                                class="form-control number_product" min="1" oninvalid="alert('Giá trị không hợp lệ');" >
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="mb-3">
+                                            <label for="note">Ghi chú</label>
+                                            <input id="note" name="note" type="text" class="form-control note">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                
+                                 {{!-- <div class="row">
+
+                                    <div class="col-sm-4">
+                                        <div class="mb-6">
+                                            <label for="product_title">Tên sản phẩm</label>
+                                            <input id="product_title" name="product_title" type="text" class="form-control product_title" value="Hãy dán linh vào để được báo tên sản phẩm" disabled>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">
+                                            <label for="product_price">Giá niêm yết</label>
+                                            <input id="product_price" name="product_price" type="text" class="form-control product_price" value="Hãy dán linh vào để được báo giá sản phẩm" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">
+
+                                            <label for="currency_price_vn">Giá quy đổi (VNĐ)</label>
+
+                                            <input id="currency_price" name="currency_price" type="text" class="form-control currency_price" value="Hãy dán linh vào để được báo giá sản phẩm" disabled>
+                                        </div>
+                                    </div>
+                                </div> --}}
+                            </form>
+                        </div>
+                        <div class="col-lg-1">
+                            <div class="col-sm-1" style="margin-top: 25px;">
+                                <button class="btn btn-danger remove">
+                                    <i class="fas fa-backspace"></i>
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div style="float:right">
+                    <button id="add" class="btn btn-primary">
+                        + Thêm sản phẩm
+                    </button>
+
+                </div>
+            </div>
+            <!--End order list -->
+        </div>
+       
+        <!-- Start note for vendor -->
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title">2. Bạn có thể để lại lời nhắn cho chúng tôi </h1>
+                <p class="card-title-desc">Ghi những chú ý về đơn hàng bên dưới</p>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="mb-3">
+                            <label for="basicpill-address-input" class="form-label">Lời nhắn</label>
+                            <textarea id="note_for_vendor" class="form-control" rows="2"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End note for vendor -->
+        <!-- Start choose address -->
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title">3. Lựa chọn địa chỉ nhận hàng </h1>
+                <p class="card-title-desc">Chọn một địa chỉ bạn muốn nhận hàng</p>
+                <div class="modal fade " id="create_add" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">+ Tạo địa chỉ mới</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            
+                            <div class="modal-body">
+                                <form id="add_address">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="productname">Họ và tên</label>
+                                                <input id="fullname" name="productname" type="text"
+                                                    class="form-control productname">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="number_phone">Số điện thoại</label>
+                                                <input id="phone" name="number_phone" type="text"
+                                                    class="form-control number_phone" maxlength="10">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12">
+                                            <div class="mb-3">
+                                                <label for="choices-single-groups"
+                                                    class="form-label font-size-13 text-muted">Tỉnh/Thành phố</label>
+                                                <select class="form-control" data-trigger name="choices-single-groups"
+                                                    id="city">
+                                                    <option value="">Chọn một tỉnh/thành phố</option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12">
+                                            <div class="mb-3">
+                                                <label for="choices-single-groups"
+                                                    class="form-label font-size-13 text-muted">Quận/Huyện</label>
+                                                <select class="form-control" data-trigger name="choices-single-groups"
+                                                    id="district">
+                                                    <option value="">Chọn một quận/huyện</option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12">
+                                            <div class="mb-3">
+                                                <label for="choices-single-groups"
+                                                    class="form-label font-size-13 text-muted">Xã/Phường</label>
+                                                <select class="form-control" data-trigger name="choices-single-groups"
+                                                    id="ward">
+                                                    <option value="">Chọn một xã/phường</option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <label for="message-text" class="col-form-label">Địa chỉ chi tiết</label>
+                                            <textarea class="form-control" id="address"></textarea>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                                <button type="button" id="create_local" class="btn btn-primary">Tạo</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row" id="list_add">
+                    {{#if address}}
+                    {{#each address}}
+                    <div class="col-lg-12">
+                        <div class="form-check">
+                            <input class="form-check-input" name="choose_address" type="radio" id="{{this._id}}"
+                                value="{{this._id}}">
+                            <label style="font-size:15px" class="form-check-label" for="{{this._id}}">
+                                {{this.fullname}}, {{this.phone}}, {{this.add}}, {{this.ward}}, {{this.district}},
+                                {{this.city}}
+                            </label>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    {{/each}}
+                    {{else}}
+                    <h5>Bạn chưa có địa chỉ nào, vui lòng tạo địa chỉ mới</h5>
+                    {{/if}}
+                </div>
+                <button style="float: left" type="button" class="btn btn-warning" data-bs-toggle="modal"
+                    data-bs-target="#create_add" data-bs-whatever="@getbootstrap">Tạo địa chỉ mới</button>
+            </div>
+        </div>
+
+
+        <!-- End choose address -->
+        <div class="d-flex flex-wrap gap-2" style="float:right">
+            <button id="submit" class="btn-lg btn-primary waves-effect waves-light">Tạo đơn hàng</button>
+            <button type="button" class="btn btn-secondary waves-effect waves-light">Hủy</button>
+        </div>
+        <!--Submit-->
+    </div>
+</div>
+<script src="/assets/libs/jquery/jquery.min.js"></script>
+<script src="/js/axios.min.js"></script>
+<script src="/js/jquery.cookie.js"></script>
+<script src="/js/create.js"></script>

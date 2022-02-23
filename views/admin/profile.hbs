@@ -1,0 +1,263 @@
+<!--Start profile page-->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <p style="display:none" id="getid">{{data._id}}</p>
+            <div class="card-header">
+                <h1 class="card-title">Hồ sơ của tôi</h1>
+                <p class="card-description">Quản lý thông tin hồ sơ để bảo mật tài khoản</p>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-8 col-md-6">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <div class="form-group mb-3">
+                                    <label>Họ và tên</label>
+                                    <input type="text" name="us" value="{{data.fullname}}" id="fullname"
+                                        class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-md-6">
+                                <div class="form-group mb-3">
+                                    <label>Số điện thoại</label>
+                                    <input class="form-control" value="{{data.phone}}" type="tel" value="" id="phone">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+
+                            <div class="col-xl-6 col-md-6">
+                                <div class="form-group mb-3">
+                                    <label>Email</label>
+                                    <input type="email" value="{{data.email}}"
+                                        data-pristine--message="Vui lòng nhập email" readonly="true" disabled="true"
+                                        class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Giới tính</label>
+                                <p style="display: none;" id="gend">{{data.gender}}</p>
+                                <div class="d-flex">
+                                    <div class="form-check mb-3" style="margin-right: 5px;">
+                                        <input class="form-check-input" type="radio" value="male" name="gender"
+                                            id="male">
+                                        <label class="form-check-label" for="male">
+                                            Nam
+                                        </label>
+                                    </div>
+                                    <div class="form-check mb-3" style="margin-right: 5px;">
+                                        <input class="form-check-input" type="radio" value="female" name="gender"
+                                            id="female">
+                                        <label class="form-check-label" for="female">
+                                            Nữ
+                                        </label>
+                                    </div>
+                                    <div class="form-check mb-3" style="margin-right: 5px;">
+                                        <input class="form-check-input" type="radio" value="other" name="gender"
+                                            id="other">
+                                        <label class="form-check-label" for="other">
+                                            Khác
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-xl-6 col-md-6">
+                                <div class="mb-3">
+                                    <label for="example-date-input" class="form-label">Ngày sinh</label>
+                                    <input class="form-control" value="{{formatDateOfBirth data.date_of_birth}}"
+                                        id="date" type="date" id="example-date-input">
+                                </div>
+                            </div>
+
+
+                        </div>
+                        {{#if data.updatedAt}}
+                        <p>Ngày cập nhật gần nhất: {{formatDateViewDetail data.updatedAt}} </p>
+                        {{else}}
+                        <p style="color: orange">Thông tin chưa được cập nhật lần nào</p>
+                        {{/if}}
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <p style="text-align:center;" class="form-check-label">Ảnh đại diện</p>
+                        <br>
+                        <div class="flex-shrink-0">
+                            <div class="avatar center">
+                                <img src="/assets/images/users/avatar-3.jpg" alt=""
+                                    class="img-fluid rounded-circle d-block img-thumbnail  ">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <input class="form-control" readonly="true"
+                        value=" {{data.address.0.add}} {{data.address.0.ward}} {{data.address.0.district}} {{data.address.0.city}}" />
+                    <br>
+                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#update_add"
+                        data-bs-whatever="@getbootstrap">Cập nhật địa chỉ</button>
+                </div>
+                <!-- end row -->
+            </div>
+            <!-- end col -->
+        </div>
+        <div class="container">
+              <div class="modal fade" id="passSuccess" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        </div>
+
+                        <div class="modal-body">
+
+                            <div class="thank-you-pop" style="text-align: center">
+                                <img src="/img/Green-Round-Tick.png" alt="">
+                                <h1>Cập nhật khẩu thành công</h1>
+                                <p>Xin bạn hãy đăng nhập lại</p>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade " id="update_pass" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Cập nhật mật khẩu</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label for="productname">Mật khẩu cũ</label>
+                                    <input id="old_pass" name="productname" type="password"
+                                        class="form-control productname">
+                                    <div class="form-check font-size-15">
+                                        <input class="form-check-input" type="checkbox" id="checkPassOle">
+                                        <label class="form-check-label font-size-13" for="checkPassOle">
+                                            Hiển thị mật khẩu
+                                        </label>
+                                    </div>
+                                    <span id="display_log"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label for="productname">Mật khẩu mới</label>
+                                    <input id="new_pass" name="productname" type="password"
+                                        class="form-control productname">
+                                    <div class="form-check font-size-15">
+                                        <input class="form-check-input" type="checkbox" id="checkPass">
+                                        <label class="form-check-label font-size-13" for="checkPass">
+                                            Hiển thị mật khẩu
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-muted mb-0"><a href="/auth/recoverpw" class="text-primary fw-semibold"> Quên mật
+                                khẩu </a> </p>
+                        <br>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                            <button type="button" disabled="true" id="oke_pass" class="btn btn-primary">Cập
+                                nhật</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade " id="update_add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Cập nhật địa chỉ</h5>
+                        <p id="get_id_add" style="display: none">{{data.address.0._id}}</p>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="add_address">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="mb-3">
+                                        <label for="choices-single-groups"
+                                            class="form-label font-size-13 text-muted">Tỉnh/Thành phố</label>
+                                        <select class="form-control" data-trigger name="choices-single-groups"
+                                            id="city">
+                                            <option value="">{{data.address.0.city}}</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="mb-3">
+                                        <label for="choices-single-groups"
+                                            class="form-label font-size-13 text-muted">Quận/Huyện</label>
+                                        <select class="form-control" data-trigger name="choices-single-groups"
+                                            id="district">
+                                            <option value="">{{data.address.0.district}}</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="mb-3">
+                                        <label for="choices-single-groups"
+                                            class="form-label font-size-13 text-muted">Xã/Phường</label>
+                                        <select class="form-control" data-trigger name="choices-single-groups"
+                                            id="ward">
+                                            <option value="">{{data.address.0.ward}}</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <label for="message-text" class="col-form-label">Địa chỉ chi tiết</label>
+                                    <textarea class="form-control" id="address">{{data.address.0.add}}</textarea>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                        <button type="button" id="update_local" class="btn btn-primary">Cập nhật</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="modal fade" id="ignismyModal" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+
+                            <div class="thank-you-pop">
+                                <img src="/img/Green-Round-Tick.png" alt="">
+                                <h1 style="text-align: center">Cập nhật thành công</h1>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <button id="update" class="btn-lg btn-primary">Cập nhật</button>
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#update_pass"
+                data-bs-whatever="@getbootstrap">Cập nhật mật khẩu</button>
+        </div>
+    </div>
+</div>
+
+<!-- end profile page -->
+<script src="/assets/libs/jquery/jquery.min.js"></script>
+<script src="/js/axios.min.js"></script>
+<script src="/js/profile.admin.js"></script>

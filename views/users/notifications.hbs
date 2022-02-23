@@ -1,0 +1,95 @@
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0 font-size-18">Danh sách thông báo</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+
+                    <li class="breadcrumb-item active">Thông báo</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- end page title -->
+
+<div class="row">
+    <div class="col-12">
+
+        <!-- Right Sidebar -->
+        <div class=" mb-3">
+
+            <div class="card">
+
+                <ul class="message-list">
+                    <li>
+                        <div class="col-mail col-mail-1">
+                            <div class="mx-5">
+                                <span class="star-toggle far fa-star"></span>
+                            </div>
+                            <a class="title">ID đơn hàng</a>
+                        </div>
+                        <div class="col-mail col-mail-2">
+                            <a class="subject">Nội dung
+                            </a>
+                            <div class="date">Ngày/Tháng </div>
+                        </div>
+                    </li>
+                    {{#if notification_list.docs}}
+                    {{#each notification_list.docs}}
+                    <li class="click" title="{{this._id}}">
+                        <div class="col-mail col-mail-1">
+                            <div class="mx-5">
+                                <span class="star-toggle far fa-star"></span>
+                            </div>
+                            <a href="./view_detail?id={{this.order_id._id}}" class="title">{{this.order_id.nanoId}}</a>
+                        </div>
+                        <div class="col-mail col-mail-2">
+                            <a href="./view_detail?id={{this.order_id._id}}" class="subject">Thông báo - <span class={{this.is_read}}>{{this.content}}</span>
+                            </a>
+                            <div class="date">{{formatDatenoti this.createdAt}}</div>
+                        </div>
+                    </li>
+                    {{/each}}
+                    {{else}}
+                    <div>
+                        <h4 class="mb-sm-0 font-size-18">Không có thông báo</h4>
+                    </div>
+                    {{/if}}
+
+                </ul>
+
+            </div> <!-- card -->
+            <div class="row">
+                <div class="col-7">
+                    Đang hiển thị {{notification_list.docs.length}} trong tổng số {{notification_list.totalDocs}}
+                    thông báo
+                </div>
+                <div class="col-5">
+                    <div class="btn-group float-end">
+                        {{#ifEquals notification_list.prevPage null}}
+                        <a class="btn btn-sm btn-success waves-effect" disabled="disabled"><i
+                                class="fa fa-chevron-left"></i></a>
+                        {{else}}
+                        <a href="notifications?page={{notification_list.prevPage}}"
+                            class="btn btn-sm btn-success waves-effect"><i class="fa fa-chevron-left"></i></a>
+                        {{/ifEquals}}
+                        {{#ifEquals notification_list.nextPage null}}
+                        <a class="btn btn-sm btn-success waves-effect" disabled="disabled"><i
+                                class="fa fa-chevron-right"></i></a>
+                        {{else}}
+                        <a href="notifications?page={{notification_list.nextPage}}"
+                            class="btn btn-sm btn-success waves-effect"><i class="fa fa-chevron-right"></i></a>
+                        {{/ifEquals}}
+                    </div>
+                </div>
+            </div>
+        </div> <!-- end Col-9 -->
+
+    </div>
+
+</div><!-- End row -->
+<script src="/assets/libs/jquery/jquery.min.js"></script>
+<script src="/js/notification.js"></script>

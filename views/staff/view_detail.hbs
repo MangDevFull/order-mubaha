@@ -1,0 +1,491 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card card-header">
+            <h1 style="display: none;" id="getOrderID">{{infor._id}}</h1>
+            <h1 style="display: none;" id="nanaID">{{infor.nanoId}}</h1>
+            <h5 style="float:right">ID đơn hàng: {{infor.nanoId}} | Trạng thái: <span class="{{infor.status}}"></span>
+            </h5>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="card mb-0">
+            <div class="card-header">
+                <h1 class="card-title">Thông tin khách hàng đặt hàng</h1>
+            </div>
+            <div class="card-body">
+                <p style="display: none;" id="getEmail">{{infor.user.email}}</p>
+                <p style="display: none;" id="getUserID">{{infor.user._id}}</p>
+                <p>Họ và tên: <span id="nameCus">{{infor.user.fullname}}</span></p>
+                <p>Số điện thoại: {{infor.user.phone}}</p>
+                <p>Ngày đặt hàng: {{formatDateViewDetail infor.createdAt}}</p>
+            </div>
+        </div>
+        <div style="border-top: 1px solid #e9e9ef"></div>
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title">Thông tin nhân viên tiếp nhận đơn hàng</h1>
+            </div>
+            <div class="card-body">
+                <p>Họ và tên: {{infor.staff.fullname}}</p>
+                <p>Số điện thoại: {{infor.staff.phone}}</p>
+                <p>Ngày báo giá: {{formatDateViewDetail infor.quoted_add_date}}</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title">Thông tin đơn hàng</h1>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6" style="border-right: 1px solid rgb(32, 30, 30);">
+                        <div class="row">
+                            <p style="color:rgb(209, 137, 43);text-align: center;"><b>Thông tin giao hàng</b></p>
+                            <table id="datatable" class="table dt-responsive">
+                                <thead>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Họ và tên</t>
+                                        <th>{{infor.address.fullname}}</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Số điện thoại</td>
+                                        <th>{{infor.address.phone}}</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Đ/c chi tiết</td>
+                                        <th>{{infor.address.add}}</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Xã/Phường</td>
+                                        <th>{{infor.address.ward}}</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Quận/Huyện</td>
+                                        <th>{{infor.address.district}}</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Thành phố/Tỉnh</td>
+                                        <th>{{infor.address.city}}</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <p style="color:rgb(143, 84, 84);text-align: center;">Trạng thái vận chuyển</p>
+                        {{#if infor.shipping_status}}
+                        <ul class="list-group">
+                            {{#each infor.shipping_status}}
+                            <li class="list-group-item">{{formatDateViewDetail this.time}}/ <span
+                                    style="color:rgb(189, 114, 114)">{{this.status}}</span></li>
+                            {{/each}}
+                            {{else}}
+                            <h3 style="color: red;margin-top: 40px;margin-left:20px">Chưa có thông tin vận chuyển </h3>
+                            {{/if}}
+                    </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="card-header">
+        <h1 class="card-title">Các mặt hàng</h1>
+        <p class="card-description">Click vào các link để xem lại sản phẩm</p>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr style="text-align:center;">
+                        <th>Linh sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Ghi chú</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each infor.products}}
+                    <tr style="text-align:center;">
+                        <td style="word-break: break-all">
+                            <ul>
+                                <li style=" overflow: auto;">
+                                    <a target="_blank" href="{{this.link}}">
+                                        <p style="width: 900px;
+                                                    overflow: hidden;
+                                                    white-space: nowrap; 
+                                                    text-overflow: ellipsis;">{{this.link}}
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </td>
+                        <td>{{this.number}}</td>
+                        <td>{{this.note}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="card mb-0">
+    <div class="card-header">
+        <h1 class="card-title">Ghi chú của người đặt hàng</h1>
+    </div>
+    <div class="card-body">
+        <p>{{infor.note}}</p>
+    </div>
+</div>
+<div style="border-top: 1px solid #e9e9ef"></div>
+{{#if infor.staff_note}}
+<div class="card">
+    <div class="card-header">
+        <h1 class="card-title">Ghi chú của nhân viên</h1>
+    </div>
+    <div class="card-body">
+        <p>{{infor.staff_note}}</p>
+    </div>
+</div>
+{{/if}}
+{{#if infor.reson_cancle}}
+<div class="card">
+    <div class="card-header">
+        <h1 class="card-title">Lý do hủy đơn hàng</h1>
+    </div>
+    <div class="card-body">
+        <h4 style="color:red">{{infor.reson_cancle}}</h4>
+        <p>Ngày hủy đơn: {{formatDateViewDetail infor.cancle_date}}</p>
+    </div>
+</div>
+{{/if}}
+{{#if infor.quoted_add_date}}
+<div class="card">
+    <div class="card-header">
+        <h1 class="card-title">Thông tin chi tiết về báo giá</h1>
+    </div>
+    <div class="card-body">
+        <p>Ngày báo giá: {{formatDateViewDetail infor.quoted_add_date}}</p>
+        {{#if infor.quoted_update_date}}
+        <p>Ngày cập nhật giá: {{formatDateViewDetail infor.quoted_update_date}}</p>
+        {{/if}}
+        <ul class="list-group">
+            <li class="list-group-item" style="">Vận chuyển trung quốc:
+                <span id="price_delivery_china">
+                    {{infor.price_delivery_china}}</span> VND
+            </li>
+            <li class="list-group-item">Phí thông quan:
+                <span id="price_delivery_china_to_vn"> {{infor.price_delivery_china_to_vn}}</span> VND
+            </li>
+            <li class="list-group-item">Vận chuyển việt nam:
+                <span id="delivery_vn">
+                    {{infor.delivery_vn}}
+                </span> VND
+            </li>
+            <li class="list-group-item">Tổng đơn sản phẩm:
+                <span id="total_price">
+                    {{infor.total_price}}
+                </span> VND
+            </li>
+            <li class="list-group-item" style="color: blue">
+                Tổng số tiền đơn hàng :
+                <span id="total">
+                    {{infor.total}}
+                </span> VND
+            </li>
+            {{#ifEquals infor.status_checkout "deposited"}}
+            <li class="list-group-item" style="color:green">Tổng số tiền đã đặt cọc :
+                <span id="price_datcoc">
+                    {{infor.deposited}}
+                </span> VND
+            </li>
+            {{/ifEquals}}
+            {{#ifEquals infor.status_checkout "refunds"}}
+            <li class="list-group-item" id="status_ref" style="color:red">Tổng số tiền đã hoàn trả :
+                <span id="price_hoantien">
+                    {{infor.refunds}}
+                </span> VND
+            </li>
+            {{/ifEquals}}
+            <div id="status_remain" style="display: none">
+                <li class="list-group-item" style="color:red">Tổng số tiền còn lại :
+                    <span id="price_remain">
+
+                    </span> VND
+                </li>
+            </div>
+        </ul>
+    </div>
+</div>
+{{else}}
+<div class="card">
+    <div class="card-header">
+        <h1 style="color:red" class="card-title">Chưa có thông tin báo giá</h1>
+    </div>
+</div>
+{{/if}}
+{{#if infor.status_checkout}}
+<div class="card">
+    <div class="card-header">
+        <h1 class="card-title">Trạng thái thanh toán</h1>
+    </div>
+    <div class="card-body">
+        <h4 style="color:red" class="{{infor.status_checkout}}">{{infor.status_checkout}}</h4>
+    </div>
+</div>
+{{/if}}
+<div class="modal fade " id="update_shiping" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" style="text-align:center" id="exampleModalLabel">Cập nhật trạng thái vận chuyển
+                </h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12" style=" padding:10px ;margin-bottom: 10px;">
+                        <label for="example-datetime-local-input" class="form-label">Chọn ngày và giờ trạng
+                            thái</label>
+                        <input class="form-control" type="datetime-local" id="example-datetime-local-input">
+                    </div>
+                </div>
+                <div class="row">
+                    <label for="example-datetime-local" class="form-label">Chọn trạng thái</label>
+                    <div class="col-lg-12">
+                        <div class="form-check">
+                            <input class="form-check-input" name="choose_reason_ship" type="radio" id="1"
+                                value="Đang vận chuyển bên Trung Quốc">
+                            <label style="font-size:15px" class="form-check-label" for="1">
+                                Đang vận chuyển bên Trung Quốc
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-check">
+                            <input class="form-check-input" name="choose_reason_ship" type="radio" id="2"
+                                value=" Đang thông quan">
+                            <label style="font-size:15px" class="form-check-label" for="2">
+                                Đang thông quan
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-check">
+                            <input class="form-check-input" name="choose_reason_ship" type="radio" id="3"
+                                value="Đang vận chuyển về Việt Nam">
+                            <label style="font-size:15px" class="form-check-label" for="3">
+                                Đang vận chuyển về Việt Nam
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="mb-3">
+                            <label for="note" class="form-label">Hoặc viết trạng thái khác</label>
+                            <textarea class="form-control" id="status_ship" rows="3"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" disabled="true" id="oke_shipping" class="btn btn-primary">Cập nhật</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade " id="update_status" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" style="text-align:center" id="exampleModalLabel">Cập nhật đơn hàng
+                </h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg-12">
+                    <div class="form-check">
+                        <input class="form-check-input" name="choose_reason" type="radio" id="accept_o"
+                            value="shipping">
+                        <label style="font-size:15px" class="form-check-label" for="accept_o">
+                            Xác nhận đơn hàng
+                        </label>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="form-check">
+                        <input class="form-check-input" name="choose_reason" type="radio" id="cancel_o" value="cancle">
+                        <label style="font-size:15px" class="form-check-label" for="cancel_o">
+                            Hủy đơn hàng
+                        </label>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="form-check">
+                        <input class="form-check-input" name="choose_reason" type="radio" id="success_o"
+                            value="success">
+                        <label style="font-size:15px" class="form-check-label" for="success_o">
+                            Thành công
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div id="note_statusaaaa">
+
+                    </div>
+            <div class="modal-footer" id="but">
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade " id="update_price" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" style="text-align:center" id="exampleModalLabel1">Cập nhật báo giá
+                </h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="mb-3">
+                            <label for="price_delivery_china" class="form-label">Giá vận chuyển
+                                trong
+                                Trung quốc</label>
+                            <input type="number" value="{{infor.price_delivery_china}}" class="form-control"
+                                id="b_price_delivery_china">
+                            <span style="color: red" id="a_price_delivery_china"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="mb-3">
+                            <label for="price_delivery_china_to_vn" class="form-label">Giá vận
+                                chuyển từ Trung Quốc về Việt Nam</label>
+                            <input type="number" value="{{infor.price_delivery_china_to_vn}}" class="form-control"
+                                id="b_price_delivery_china_to_vn">
+                            <span style="color: red" id="a_price_delivery_china_to_vn"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="mb-3">
+                            <label for="price_delivery_china" class="form-label">Giá vận chuyển ở Việt Nam</label>
+                            <input type="number" value="{{infor.delivery_vn}}" class="form-control" id="b_delivery_vn">
+                            <span style="color: red" id="a_delivery_vn"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="mb-3">
+                            <label for="price_delivery_china_to_vn" class="form-label">Tổng giá trị tất cả sản
+                                phẩm</label>
+                            <input type="number" value="{{infor.total_price}}" class="form-control" id="b_total_price">
+                            <span style="color: red" id="a_total_price"></span>
+                        </div>
+                    </div>
+                    <div id="note_status">
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" id="oke_price" class="btn btn-primary">Cập nhật</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade " id="update_checkout" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" style="text-align:center" id="exampleModalLabel">Cập nhật trạng thái thanh toán
+                </h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg-12">
+                    <div class="form-check">
+                        <input class="form-check-input" name="choose_reason_checkout" type="radio" id="deposited"
+                            value="deposited">
+                        <label style="font-size:15px" class="form-check-label" for="deposited">
+                            Đã đặt cọc
+                        </label>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="form-check">
+                        <input class="form-check-input" name="choose_reason_checkout" type="radio" id="unpaid"
+                            value="unpaid">
+                        <label style="font-size:15px" class="form-check-label" for="unpaid">
+                            Chưa thanh toán
+                        </label>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="form-check">
+                        <input class="form-check-input" name="choose_reason_checkout" type="radio" id="paid"
+                            value="paid">
+                        <label style="font-size:15px" class="form-check-label" for="paid">
+                            Đã thanh toán
+                        </label>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="form-check">
+                        <input class="form-check-input" name="choose_reason_checkout" type="radio" id="refunds"
+                            value="refunds">
+                        <label style="font-size:15px" class="form-check-label" for="refunds">
+                            Đã hoàn tiền
+                        </label>
+                    </div>
+                </div>
+                <div id="checkout">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" id="oke_checkout" class="btn btn-primary">Cập nhật</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="d-flex flex-wrap gap-2" style="float:right">
+    <button class="btn btn-success waves-light" id="ship" data-bs-toggle="modal" data-bs-target="#update_shiping"
+        class="btn btn-danger waves-effect waves-light">
+
+        <i class="mdi mdi-pencil font-size-14"></i> Cập nhật thông tin vận chuyển
+    </button>
+    <button class="btn btn-danger waves-light" id="status" data-bs-toggle="modal" data-bs-target="#update_status"
+        class="btn btn-danger waves-effect waves-light">
+
+        <i class="mdi mdi-pencil font-size-14"></i> Cập nhật trạng thái đơn hàng
+    </button>
+    <button class="btn btn-warning waves-light" id="checkout" data-bs-toggle="modal" data-bs-target="#update_checkout"
+        class="btn btn-danger waves-effect waves-light">
+
+        <i class="mdi mdi-pencil font-size-14"></i> Cập nhật trạng thái thanh toán
+    </button>
+    <button class="btn btn-primary waves-light" id="price" data-bs-toggle="modal" data-bs-target="#update_price"
+        class="btn btn-danger waves-effect waves-light">
+        <i class="mdi mdi-pencil font-size-14"></i> Cập nhật báo giá
+    </button>
+    <a href="./my_order?id={{data._id}}" type="button" class="btn btn-secondary waves-effect waves-light">Quay lại
+        danh sách
+        đơn hàng</a>
+</div>
+</div>
+
+</div>
+</div>
+
+<script src="/assets/libs/jquery/jquery.min.js"></script>
+<script src="/js/status.js"></script>
+<script src="/js/status_checkout.js"></script>
+<script src="/js/view_detail_staff.js"></script>
+{{!-- <script src="/js/format_price.js"></script> --}}

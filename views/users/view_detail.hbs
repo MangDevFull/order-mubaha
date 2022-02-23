@@ -1,0 +1,371 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h1 style="display:none;" id="getStatus">{{infor.status}}</h1>
+                <h1 style="display: none;" id="nanaID">{{infor.nanoId}}</h1>
+                <span style="display: none;" id="getOrderID">{{infor._id}}</span>
+                <h5>ID đơn hàng: <span>{{infor.nanoId}}</span>| Trạng thái: <span class="{{infor.status}}"></span></h5>
+            </div>
+        </div>
+            {{#if infor.staff}}
+        <div class="row">
+            <div class=" col-md-6">
+                <div class="card-header">
+                    <h1 class="card-title">Thông tin khách hàng đặt hàng</h1>
+                </div>
+                <div class="card card-body">
+                    <p>Họ và tên: {{infor.user.fullname}}</p>
+                    <p>Số điện thoại: {{infor.user.phone}}</p>
+                    <p>Ngày đặt hàng: {{formatDateViewDetail infor.createdAt}}</p>
+                </div>
+            </div>
+        
+            <div class=" col-md-6 ">
+                <div class="card-header">
+                    <h1 class="card-title">Thông tin nhân viên tiếp nhận đơn hàng</h1>
+                </div>
+                <div class="card card-body">
+                    <p>Họ và tên: {{infor.staff.fullname}}</p>
+                    <p>Số điện thoại: {{infor.staff.phone}}</p>
+                    <p>Ngày báo giá: {{formatDateViewDetail infor.quoted_add_date}}</p>
+                </div>
+            </div>
+           
+        </div>
+          {{else}}
+           <div class=" col-md-12">
+                <div class="card-header">
+                    <h1 class="card-title">Thông tin khách hàng đặt hàng</h1>
+                </div>
+                <div class="card card-body">
+                    <p>Họ và tên: {{infor.user.fullname}}</p>
+                    <p>Số điện thoại: {{infor.user.phone}}</p>
+                    <p>Ngày đặt hàng: {{formatDateViewDetail infor.createdAt}}</p>
+                </div>
+            </div>
+         {{/if}}
+
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title">Thông tin đơn hàng</h1>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6" style="border-right: 1px solid rgb(32, 30, 30);">
+                        <div class="row">
+                            <p style="color:rgb(209, 137, 43);text-align: center;"><b>Thông tin giao hàng</b></p>
+                            <table id="datatable" class="table dt-responsive">
+                                <thead>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Họ và tên</t>
+                                        <th>{{infor.address.fullname}}</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Số điện thoại</td>
+                                        <th>{{infor.address.phone}}</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Đ/c chi tiết</td>
+                                        <th>{{infor.address.add}}</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Xã/Phường</td>
+                                        <th>{{infor.address.ward}}</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Quận/Huyện</td>
+                                        <th>{{infor.address.district}}</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Thành phố/Tỉnh</td>
+                                        <th>{{infor.address.city}}</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <p style="color:rgb(143, 84, 84);text-align: center;">Trạng thái vận chuyển</p>
+                        {{#if infor.shipping_status}}
+                        <ul class="list-group">
+                            {{#each infor.shipping_status}}
+                            <li class="list-group-item">{{formatDateViewDetail this.time}}/ <span
+                                    style="color:rgb(189, 114, 114)">{{this.status}}</span></li>
+                            {{/each}}
+                            {{else}}
+                            <h3 style="color: red;margin-top: 40px;margin-left:20px">Chưa có thông tin vận chuyển </h3>
+                            {{/if}}
+                    </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="card-header">
+        <h1 class="card-title">Các mặt hàng</h1>
+        <p class="card-description">Click vào các link để xem lại sản phẩm</p>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr style="text-align:center;">
+                        <th>Linh sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Ghi chú</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each infor.products}}
+                    <tr style="text-align:center;">
+                        <td style="word-break: break-all">
+                            <ul>
+                                <li style=" overflow: auto;">
+                                    <a target="_blank" href="{{this.link}}">
+                                        <p style="width: 900px;
+                                                    overflow: hidden;
+                                                    white-space: nowrap; 
+                                                    text-overflow: ellipsis;">{{this.link}}
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </td>
+                        <td>{{this.number}}</td>
+                        <td>{{this.note}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="card-header">
+        <h1 class="card-title">Ghi chú của người đặt hàng</h1>
+    </div>
+    <div class="card-body">
+        <h4>{{infor.note}}</h4>
+    </div>
+</div>
+{{#if infor.staff_note}}
+<div class="card">
+    <div class="card-header">
+        <h1 class="card-title">Ghi chú của nhân viên</h1>
+    </div>
+    <div class="card-body">
+        <h4>{{infor.staff_note}}</h4>
+    </div>
+</div>
+{{/if}}
+{{#if infor.reson_cancle}}
+<div class="card">
+    <div class="card-header">
+        <h1 class="card-title">Lý do hủy đơn hàng</h1>
+    </div>
+    <div class="card-body">
+        <h4 style="color:red">{{ infor.reson_cancle}}</h4>
+        <p>Ngày hủy đơn: {{formatDateViewDetail infor.cancle_date}}</p>
+    </div>
+</div>
+{{/if}}
+{{#if infor.quoted_add_date}}
+<div class="card">
+    <div class="card-header">
+        <h1 class="card-title">Thông tin chi tiết về báo giá</h1>
+    </div>
+    <div class="card-body">
+        <p>Ngày báo giá: {{formatDateViewDetail infor.quoted_add_date}}</p>
+        {{#if infor.quoted_update_date}}
+        <p>Ngày cập nhật giá: {{formatDateViewDetail infor.quoted_update_date}}</p>
+        {{/if}}
+        <ul class="list-group">
+            <li class="list-group-item" style="">Vận chuyển trung quốc:
+                <span id="price_delivery_china">
+                    {{infor.price_delivery_china}}</span> VND
+            </li>
+            <li class="list-group-item">Phí thông quan:
+                <span id="price_delivery_china_to_vn"> {{infor.price_delivery_china_to_vn}}</span> VND
+            </li>
+            <li class="list-group-item">Vận chuyển việt nam:
+                <span id="delivery_vn">
+                    {{infor.delivery_vn}}
+                </span> VND
+            </li>
+            <li class="list-group-item">Tổng đơn sản phẩm:
+                <span id="total_price">
+                    {{infor.total_price}}
+                </span> VND
+            </li>
+            <li class="list-group-item" style="color: blue">
+                Tổng số tiền đơn hàng :
+                <span id="total">
+                    {{infor.total}}
+                </span> VND
+            </li>
+            {{#ifEquals infor.status_checkout "deposited"}}
+            <li class="list-group-item" style="color:green">Tổng số tiền đã đặt cọc :
+                <span id="price_datcoc">
+                    {{infor.deposited}}
+                </span> VND
+            </li>
+            {{/ifEquals}}
+            {{#ifEquals infor.status_checkout "refunds"}}
+            <li class="list-group-item" id="status_ref" style="color:red">Tổng số tiền đã hoàn trả :
+                <span id="price_hoantien">
+                    {{infor.refunds}}
+                </span> VND
+            </li>
+            {{/ifEquals}}
+            <div id="status_remain" style="display: none">
+                <li class="list-group-item" style="color:red">Tổng số tiền còn lại :
+                    <span id="price_remain">
+
+                    </span> VND
+                </li>
+            </div>
+        </ul>
+    </div>
+</div>
+{{else}}
+<div class="card">
+    <div class="card-header">
+        <h1 style="color:red" class="card-title">Chưa có thông tin báo giá</h1>
+    </div>
+</div>
+{{/if}}
+{{#if infor.status_checkout}}
+<div class="card">
+    <div class="card-header">
+        <h1 class="card-title">Trạng thái thanh toán</h1>
+    </div>
+    <div class="card-body">
+        <h4 style="color:red" class="{{infor.status_checkout}}">{{infor.status_checkout}}</h4>
+    </div>
+</div>
+{{/if}}
+{{#ifEquals infor.status "pending_quoted"}}
+{{else}}
+<div class="card">
+    <div class="card-header">
+        <h1 class="card-title">Các tài khoản thanh toán</h1>
+        <p class="card-description" style="color:red">
+            Tất cả các tài khoản đều hợp lệ</p>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            {{#if banks}}
+            {{#each banks}}
+            <div class="col-md-6 col-xl-4">
+                <div class="card">
+                    <img class="card-img-top" src="/img/banks/{{this.image}}" style="height: 200px"
+                        alt="Ảnh tài khoản ngân hàng">
+                    <div class="card-body">
+                        <h4 class="card-title">STK: {{this.stk}}</h4>
+                        <p class="card-text">Ngân hàng: {{this.bank}}</p>
+                        <p class="card-text">Chủ thẻ: {{this.name}}</p>
+                    </div>
+                </div>
+            </div><!-- end col -->
+            {{/each}}
+            {{else}}
+            <h5 style="color:red">Không có tài khoản nào ở đây, vui lòng liên hệ lại với chúng tôi</h5>
+            {{/if}}
+        </div>
+    </div>
+</div>
+{{/ifEquals}}
+
+<div class="modal fade " id="cancle" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" style="text-align:center" id="exampleModalLabel">Vui lòng cho chúng tôi
+                    biết lý do hủy đơn</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div style="background-color: rgb(255, 255, 255); 
+                            margin-bottom: 10px;
+                            color:orange">
+                        Vui lòng chọn lý do hủy đơn hàng. Lưu ý :
+                        Thao tác này sẽ hủy tất cả các sản phẩm có trong đơn hàng và không thể hoàn tác
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-check">
+                            <input class="form-check-input" name="choose_reason" type="radio" id="1"
+                                value="Muốn đổi địa chỉ giao hàng">
+                            <label style="font-size:15px" class="form-check-label" for="1">
+                                Muốn đổi địa chỉ giao hàng
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-check">
+                            <input class="form-check-input" name="choose_reason" type="radio" id="2"
+                                value="Muốn thay đổi sản phẩm trong đơn hàng(size, màu sắc, số lượng)">
+                            <label style="font-size:15px" class="form-check-label" for="2">
+                                Muốn thay đổi sản phẩm trong đơn hàng(size, màu sắc, số lượng)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-check">
+                            <input class="form-check-input" name="choose_reason" type="radio" id="3"
+                                value=" Tìm thấy chỗ khác rẻ hơn">
+                            <label style="font-size:15px" class="form-check-label" for="3">
+                                Tìm thấy chỗ khác rẻ hơn
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-check">
+                            <input class="form-check-input" name="choose_reason" type="radio" id="4"
+                                value="Đổi ý không muốn mua nữa">
+                            <label style="font-size:15px" class="form-check-label" for="4">
+                                Đổi ý không muốn mua nữa
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-check">
+                            <input class="form-check-input" name="choose_reason" type="radio" id="5"
+                                value="Lý do khác không thể nói">
+                            <label style="font-size:15px" class="form-check-label" for="5">
+                                Lý do khác không thể nói
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Quay lại</button>
+                <button type="button" disabled="true" id="oke_cancle" class="btn btn-primary">Đồng ý</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="d-flex flex-wrap gap-2" style="float:right">
+    <button data-bs-toggle="modal" id="cancle_order" data-bs-target="#cancle"
+        class="btn btn-danger waves-effect waves-light">Hủy
+        đơn hàng</button>
+    <a href="./list_order" type="button" class="btn btn-secondary waves-effect waves-light">Quay lại
+        danh sách
+        đơn hàng</a>
+</div>
+</div>
+</div>
+</div>
+
+<script src="/assets/libs/jquery/jquery.min.js"></script>
+<script src="/js/status.js"></script>
+<script src="/js/status_checkout.js"></script>
+<script src="/js/view_detail_user.js"></script>
+{{!-- <script src="/js/format_price.js"></script> --}}

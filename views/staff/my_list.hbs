@@ -1,0 +1,160 @@
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+               {{#ifEquals status null}}
+                <h4 class="card-title">Tất cả các đơn hàng của bạn</h4>
+                {{/ifEquals}}
+                {{#ifEquals status "pending_quoted"}}
+                <h4 class="card-title">Tất cả các đơn hàng đang chờ báo giá</h4>
+                {{/ifEquals}}
+                {{#ifEquals status "quoted"}}
+                <h4 class="card-title">Tất cả các đơn hàng đã báo giá</h4>
+                {{/ifEquals}}
+                {{#ifEquals status "shipping"}}
+                <h4 class="card-title">Tất cả các đơn hàng đang vận chuyển</h4>
+                {{/ifEquals}}
+                {{#ifEquals status "success"}}
+                <h4 class="card-title">Tất cả các đơn hàng thành công</h4>
+                {{/ifEquals}}
+                {{#ifEquals status "cancel"}}
+                <h4 class="card-title">Tất cả các đơn hàng đã hủy</h4>
+                {{/ifEquals}}
+            </div>
+            <div class="card-body">
+                <div class="card">
+                    <ul class="nav nav-tabs nav-tabs-custom nav-justified" role="tablist">
+                        <li class="nav-item">
+                            {{#ifEquals status null}}
+                            <a class="nav-link active" href="./my_order" role="tab">
+                                {{else}}
+                                <a class="nav-link" href="./my_order" role="tab">
+                                    {{/ifEquals}}
+
+                                    <i class="fas fa-list"></i>
+                                    <span class="d-none d-sm-block">Tất cả</span>
+                                </a>
+                        </li>
+                        <li class="nav-item">
+                            {{#ifEquals status "pending_quoted"}}
+                            <a class="nav-link active" href="./my_order?status=pending_quoted" role="tab">
+                                {{else}}
+                                <a class="nav-link" href="./my_order?status=pending_quoted" role="tab">
+                                    {{/ifEquals}}
+
+                                    <i class="fas fa-spinner"></i>
+                                    <span class="d-none d-sm-block">Chờ báo giá</span>
+                                </a>
+                        </li>
+                        <li class="nav-item">
+                            {{#ifEquals status "quoted"}}
+                            <a class="nav-link active" href="./my_order?status=quoted" role="tab">
+                                {{else}}
+                                <a class="nav-link" href="./my_order?status=quoted" role="tab">
+                                    {{/ifEquals}}
+
+                                    <i class="fas fa-clipboard-check"></i>
+                                    <span class="d-none d-sm-block">Đã báo giá</span>
+                                </a>
+                        </li>
+                        <li class="nav-item">
+                            {{#ifEquals status "shipping"}}
+                            <a class="nav-link active" href="./my_order?status=shipping" role="tab">
+                                {{else}}
+                                <a class="nav-link" href="./my_order?status=shipping" role="tab">
+                                    {{/ifEquals}}
+
+                                    <i class="fas fa-shipping-fast"></i>
+                                    <span class="d-none d-sm-block">Đang giao</span>
+                                </a>
+                        </li>
+                        <li class="nav-item">
+                            {{#ifEquals status "success"}}
+                            <a class="nav-link active" href="./my_order?status=success" role="tab">
+                                {{else}}
+                                <a class="nav-link" href="./my_order?status=success" role="tab">
+                                    {{/ifEquals}}
+                                    <i class="fas fa-chevron-circle-down"></i>
+                                    <span class="d-none d-sm-block">Đã giao</span>
+                                </a>
+                        </li>
+                        <li class="nav-item">
+                            {{#ifEquals status "cancle"}}
+                            <a class="nav-link active" href="./my_order?status=cancle" role="tab">
+                                {{else}}
+                                <a class="nav-link" href="./my_order?status=cancle" role="tab">
+                                    {{/ifEquals}}
+                                    <i class="far fa-calendar-times"></i>
+                                    <span class="d-none d-sm-block">Đã Hủy</span>
+                                </a>
+                        </li>
+                    </ul>
+                </div>
+                <table id="datatable" class="table table-bordered dt-responsive ">
+                    <thead>
+                        <tr style="text-align:center;">
+                            <th>ID</th>
+                            <th>Ngày tạo</th>
+                            <th>Tên khách hàng</th>
+                            <th>Link sản phẩm</th>
+                            <th>Trạng thái thanh toán</th>
+                            <th>Trạng thái đơn hàng</th>
+                            <th>Xem</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#if my_list_order}}
+                        {{#each my_list_order}}
+                        <tr style="text-align:center;">
+                            <td>{{this.nanoId}}</td>
+                            <td>{{formatDate this.createdAt format}}</td>
+                         <td>   <a target="_blank" href="view_detail_user?id={{this.user._id}}">{{this.user.fullname}}</a></td>
+                            <td style="word-break: break-all;">
+                                <ul>
+                                    {{#each products}}
+                                    <li style=" overflow: auto;text-align: left;">
+                                        <a target="_blank" href="{{this.link}}">
+                                            <p style="width: 140px;
+                                                    overflow: hidden;
+                                                    white-space: nowrap; 
+                                                    text-overflow: ellipsis;">{{this.link}}
+                                            </p>
+                                        </a>
+                                    </li>
+                                    {{/each}}
+                                </ul>
+                            </td>
+
+                            <td class="{{this.status_checkout}}"></td>
+                            <td class="{{this.status}}"></td>
+                            {{#ifEquals this.status "pending_quoted"}}
+                            <td>
+                                <a class="btn btn-danger waves-light " target="_blank" href="./baogia_id={{this._id}}">
+                                     <i class="mdi mdi-pencil font-size-14"></i> Báo giá
+                                </a>
+                            </td>
+                            {{else}}
+
+                            <td>
+                                <a class="btn btn-success waves-light " target="_blank"
+                                    href="./view_detail_order?id={{this._id}}">
+                                    <i class=" fas fa-bullseye font-size-14"></i> Xem
+                                </a>
+                            </td>
+                            {{/ifEquals}}
+                        </tr>
+                        {{/each}}
+                        {{else}}
+                        <h5 style="color:red">Bạn chưa có đơn hàng nào</h5>
+                        {{/if}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/assets/libs/jquery/jquery.min.js"></script>
+<script src="/js/status_checkout.js"></script>
+<script src="/js/list_order.js"></script>

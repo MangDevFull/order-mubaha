@@ -1,0 +1,167 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title mb-0">Chi tiết đơn hàng</h4>
+                <p id="staff_id" style="display: none">{{data._id}}</p>
+                <p style="display: none;" id="nano">{{infor.nanoId}}</p>
+                <span style="display: none;" id="getOrderID">{{infor._id}}</span>
+                <p>ID đơn hàng: {{infor.nanoId}}</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title">Thông tin khách hàng đặt hàng</h1>
+            </div>
+            <div class="card-body">
+                <p style="display: none;" id="getEmail">{{infor.user.email}}</p>
+                <p style="display: none;" id="getUserID">{{infor.user._id}}</p>
+                <p>Họ và tên: <span id="nameCus">{{infor.user.fullname}}</span></p>
+                <p>Số điện thoại: {{infor.user.phone}}</p>
+                <p>Ngày đặt hàng: {{formatDateViewDetail infor.createdAt}}</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Các sản phẩm</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr style="text-align:center;">
+                                <th>Linh sản phẩm</th>
+                                <th>Số lượng</th>
+                                <th>Ghi chú</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each infor.products}}
+                            <tr style="text-align:center;">
+                                <td><a target="_blank" href="{{this.link}}">
+                                        <p style="width: 300px;
+                                                            overflow: hidden;
+                                                            white-space: nowrap; 
+                                                            text-overflow: ellipsis;">{{this.link}}</p>
+                                    </a></td>
+                                <td>{{this.number}}</td>
+                                <td>{{this.note}}</td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- end card body -->
+        </div>
+        <!-- end card -->
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Địa chỉ và ghi chú của khách hàng</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6" style="border-right: 1px solid rgb(32, 30, 30);">
+                        <div class="row">
+                            <p style="color:rgb(209, 137, 43);text-align: center;"><b>Thông tin giao hàng</b></p>
+                            <table id="datatable" class="table dt-responsive">
+                                <thead>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Họ và tên</t>
+                                        <th>{{infor.address.fullname}}</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Số điện thoại</td>
+                                        <th>{{infor.address.phone}}</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Đ/c chi tiết</td>
+                                        <th>{{infor.address.add}}</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Xã/Phường</td>
+                                        <th>{{infor.address.ward}}</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Quận/Huyện</td>
+                                        <th>{{infor.address.district}}</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Thành phố/Tỉnh</td>
+                                        <th>{{infor.address.city}}</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <p style="color:rgb(143, 84, 84);text-align: center;">Ghi chú của khách hàng</p>
+                        <h4>{{infor.note}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Báo giá cho khách hàng</h4>
+            </div>
+            <div class="card-body">
+                <form method="post" action="#">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label for="price_delivery_china" class="form-label">Giá vận chuyển trong Trung quốc</label>
+                                <input type="number" class="form-control" id="price_delivery_china">
+                                <span style="color: red" id= "a_price_delivery_china" ></span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label for="price_delivery_china_to_vn" class="form-label">Giá vận
+                                    chuyển từ Trung Quốc về Việt Nam</label>
+                                <input type="number" class="form-control" id="price_delivery_china_to_vn">
+                                <span style="color: red" id= "a_price_delivery_china_to_vn" ></span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label for="delivery_vn" class="form-label">Giá vận chuyển ở Việt
+                                    Nam</label>
+                                <input type="number" class="form-control" id="delivery_vn">
+                                <span style="color: red" id= "a_delivery_vn" ></span>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label for="total_price" class="form-label">Giá trị đơn hàng</label>
+                                <input type="number" class="form-control" id="total_price">
+                                  <span style="color: red" id= "a_total_price" ></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="mb-3">
+                                <label for="note" class="form-label">Ghi chú</label>
+                                <textarea class="form-control" id="tkng" rows="3"></textarea>
+                            </div>
+                        </div>
+
+                    </div>
+                    <button class="btn-lg btn-primary" data-bs-toggle="modal" style="float: right" id="baogia">
+                        Báo giá
+                    </button>
+                    </ul>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+  <script src="/assets/libs/jquery/jquery.min.js"></script>
+    <script src="/js/quoted.js"></script>

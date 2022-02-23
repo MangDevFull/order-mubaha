@@ -1,0 +1,247 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card" style="padding-top:20px;padding-bottom:10px;padding-left: 5px;">
+            <h1 style="display: none;" id="nanaID">{{infor.nanoId}}</h1>
+            <h5 style="float:right">ID đơn hàng: {{infor.nanoId}} | Trạng thái: <span class="{{infor.status}}"></span>
+            </h5>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title">Thông tin khách hàng đặt hàng</h1>
+            </div>
+            <div class="card-body">
+                <p>Họ và tên: {{infor.user.fullname}}</p>
+                <p>Số điện thoại: {{infor.user.phone}}</p>
+                <p>Ngày đặt hàng: {{formatDateViewDetail infor.createdAt}}</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title">Thông tin nhân viên tiếp nhận đơn hàng</h1>
+            </div>
+            <div class="card-body">
+                <p>Họ và tên: {{infor.staff.fullname}}</p>
+                <p>Số điện thoại: {{infor.staff.phone}}</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title">Thông tin đơn hàng</h1>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6" style="border-right: 1px solid rgb(32, 30, 30);">
+                        <div class="row">
+                            <p style="color:rgb(209, 137, 43);text-align: center;"><b>Thông tin giao hàng</b></p>
+                            <table id="datatable" class="table dt-responsive">
+                                <thead>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Họ và tên</t>
+                                        <th>{{infor.address.fullname}}</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Số điện thoại</td>
+                                        <th>{{infor.address.phone}}</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Đ/c chi tiết</td>
+                                        <th>{{infor.address.add}}</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Xã/Phường</td>
+                                        <th>{{infor.address.ward}}</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Quận/Huyện</td>
+                                        <th>{{infor.address.district}}</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Thành phố/Tỉnh</td>
+                                        <th>{{infor.address.city}}</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <p style="color:rgb(143, 84, 84);text-align: center;">Trạng thái vận chuyển</p>
+                        {{#if infor.shipping_status}}
+                        <ul class="list-group">
+                            {{#each infor.shipping_status}}
+                            <li class="list-group-item">{{formatDateViewDetail this.time}}/ <span
+                                    style="color:rgb(189, 114, 114)">{{this.status}}</span></li>
+                            {{/each}}
+                            {{else}}
+                            <h3 style="color: red;">Chưa có thông tin vận chuyển </h3>
+                            {{/if}}
+                    </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="card-header">
+        <h1 class="card-title">Các mặt hàng</h1>
+        <p class="card-description">Click vào các link để xem lại sản phẩm</p>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr style="text-align:center;">
+                        <th>Linh sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Ghi chú</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each infor.products}}
+                    <tr style="text-align:center;">
+                        <td style="word-break: break-all">
+                            <ul>
+                                <li style=" overflow: auto;">
+                                    <a href="{{this.link}}">
+                                        <p style="width: 300px;
+                                                    overflow: hidden;
+                                                    white-space: nowrap; 
+                                                    text-overflow: ellipsis;">{{this.link}}
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </td>
+                        <td>{{this.number}}</td>
+                        <td>{{this.note}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="card-header">
+        <h1 class="card-title">Ghi chú của người đặt hàng</h1>
+    </div>
+    <div class="card-body">
+        <h4>{{infor.note}}</h4>
+    </div>
+</div>
+{{#if infor.staff_note}}
+<div class="card">
+    <div class="card-header">
+        <h1 class="card-title">Ghi chú của nhân viên</h1>
+    </div>
+    <div class="card-body">
+        <h4>{{infor.staff_note}}</h4>
+    </div>
+</div>
+{{/if}}
+{{#if infor.reson_cancle}}
+<div class="card">
+    <div class="card-header">
+        <h1 class="card-title">Lý do hủy đơn hàng</h1>
+    </div>
+    <div class="card-body">
+        <h4 style="color:red">{{infor.reson_cancle}}</h4>
+        <p>Ngày hủy đơn: {{infor.cancle_date}}</p>
+    </div>
+</div>
+{{/if}}
+{{#if infor.quoted_add_date}}
+<div class="card">
+    <div class="card-header">
+        <h1 class="card-title">Thông tin chi tiết về báo giá</h1>
+    </div>
+    <div class="card-body">
+        <p>Ngày báo giá: {{formatDateViewDetail infor.quoted_add_date}}</p>
+        {{#if infor.quoted_update_date}}
+        <p>Ngày cập nhật giá: {{formatDateViewDetail infor.quoted_update_date}}</p>
+        {{/if}}
+        <ul class="list-group">
+            <li class="list-group-item" style="">Vận chuyển trung quốc:
+                <span id="price_delivery_china">
+                    {{infor.price_delivery_china}}</span> VND
+            </li>
+            <li class="list-group-item">Phí thông quan:
+                <span id="price_delivery_china_to_vn"> {{infor.price_delivery_china_to_vn}}</span> VND
+            </li>
+            <li class="list-group-item">Vận chuyển việt nam:
+                <span id="delivery_vn">
+                    {{infor.delivery_vn}}
+                </span> VND
+            </li>
+            <li class="list-group-item">Tổng đơn sản phẩm:
+                <span id="total_price">
+                    {{infor.total_price}}
+                </span> VND
+            </li>
+            <li class="list-group-item" style="color: blue">
+                Tổng số tiền đơn hàng :
+                <span id="total">
+                    {{infor.total}}
+                </span> VND
+            </li>
+            {{#ifEquals infor.status_checkout "deposited"}}
+            <li class="list-group-item" style="color:green">Tổng số tiền đã đặt cọc :
+                <span id="price_datcoc">
+                    {{infor.deposited}}
+                </span> VND
+            </li>
+            {{/ifEquals}}
+            {{#ifEquals infor.status_checkout "refunds"}}
+            <li class="list-group-item" id="status_ref" style="color:red">Tổng số tiền đã hoàn trả :
+                <span id="price_hoantien">
+                    {{infor.refunds}}
+                </span> VND
+            </li>
+            {{/ifEquals}}
+            <div id="status_remain" style="display: none">
+                <li class="list-group-item" style="color:red">Tổng số tiền còn lại :
+                    <span id="price_remain">
+
+                    </span> VND
+                </li>
+            </div>
+        </ul>
+    </div>
+</div>
+{{else}}
+<div class="card">
+    <div class="card-header">
+        <h1 style="color:red" class="card-title">Chưa có thông tin báo giá</h1>
+    </div>
+</div>
+{{/if}}
+{{#if infor.status_checkout}}
+<div class="card">
+    <div class="card-header">
+        <h1 class="card-title">Trạng thái thanh toán</h1>
+    </div>
+    <div class="card-body">
+        <h4 style="color:red" class="{{infor.status_checkout}}">{{infor.status_checkout}}</h4>
+    </div>
+</div>
+{{else}}
+<div class="card">
+    <div class="card-header">
+        <h1 style="color:red" class="card-title">Chưa có thông tin thanh toán</h1>
+    </div>
+</div>
+{{/if}}
+</div>
+
+</div>
+</div>
+
+<script src="/assets/libs/jquery/jquery.min.js"></script>
+<script src="/js/status.js"></script>
+<script src="/js/status_checkout.js"></script>
+<script src="/js/view_detail_admin.js"></script>
+<script src="/js/format_price.js"></script>

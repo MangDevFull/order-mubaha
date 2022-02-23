@@ -1,0 +1,42 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Tất cả các đơn hàng<span style="float: right;color:red">Chú ý: Những tài khoản bị đánh dấu là đã bị block</span></h4>
+            </div>
+            <div class="card-body">
+                <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100">
+                    <thead>
+                        <tr style="text-align:center;">
+                            <th>Ngày tạo</th>
+                            <th>Họ và tên</th>
+                            <th>Số điện thoại</th>
+                            <th>Xem</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {{#if list_user}}
+                    {{#each list_user}}
+                        <tr style="text-align:center;" class="{{this.isBlock}}_block">
+                            <td>{{formatDate this.createdAt}}</td>
+                            <td><a href="./view_detail_user_id={{this._id}}">{{this.fullname}}</a></td>
+                            <td >{{this.phone}}</td>
+                            <td>
+                                <a class="btn btn-success waves-light " href="./view_detail_user_id={{this._id}}">
+                                     <i class=" fas fa-bullseye font-size-14"></i> Xem
+                                </a>
+                            </td>
+                        </tr>
+                    {{/each}}
+                    {{else}}
+                    <h5 style="color:red">Hệ thống chưa có người dùng nào</h5>
+                    {{/if}}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/assets/libs/jquery/jquery.min.js"></script>
+<script src="/js/user_mn.js"></script>

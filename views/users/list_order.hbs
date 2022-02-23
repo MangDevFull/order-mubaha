@@ -1,0 +1,158 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                {{#ifEquals status null}}
+                <h4 class="card-title">Tất cả các đơn hàng của bạn</h4>
+                {{/ifEquals}}
+                {{#ifEquals status "pending_quoted"}}
+                <h4 class="card-title">Tất cả các đơn hàng đang chờ báo giá</h4>
+                {{/ifEquals}}
+                {{#ifEquals status "quoted"}}
+                <h4 class="card-title">Tất cả các đơn hàng đã báo giá</h4>
+                {{/ifEquals}}
+                {{#ifEquals status "shipping"}}
+                <h4 class="card-title">Tất cả các đơn hàng đang vận chuyển</h4>
+                {{/ifEquals}}
+                {{#ifEquals status "success"}}
+                <h4 class="card-title">Tất cả các đơn hàng thành công</h4>
+                {{/ifEquals}}
+                {{#ifEquals status "cancel"}}
+                <h4 class="card-title">Tất cả các đơn hàng đã hủy</h4>
+                {{/ifEquals}}
+            </div>
+
+            <div class="card-body">
+                 <div class="card">
+                   <ul class="nav nav-tabs nav-tabs-custom nav-justified" role="tablist">
+                        <li class="nav-item">
+                            {{#ifEquals status null}}
+                            <a class="nav-link active" href="./list_order" role="tab">
+                                {{else}}
+                                <a class="nav-link" href="./list_order" role="tab">
+                                    {{/ifEquals}}
+
+                                    <i class="fas fa-list"></i>
+
+                                    <span class="d-none d-sm-block">Tất cả đơn hàng</span>
+                                </a>
+                        </li>
+
+                        <li class="nav-item">
+                            {{#ifEquals status "pending_quoted"}}
+                            <a class="nav-link active" href="./list_order?status=pending_quoted" role="tab">
+                                {{else}}
+                                <a class="nav-link" href="./list_order?status=pending_quoted" role="tab">
+                                    {{/ifEquals}}
+                                    
+                            
+
+                                    <i class="fas fa-spinner"></i>
+                                    <span style="top: 3px; padding: 2px 4px; background-color: red; color: white;" class="badge bg-danger rounded-pill position-absolute">{{count_order_pending}}</span>
+                                    <span class="d-none d-sm-block">Chờ báo giá</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            {{#ifEquals status "quoted"}}
+                            <a class="nav-link active" href="./list_order?status=quoted" role="tab">
+                                {{else}}
+                                <a class="nav-link" href="./list_order?status=quoted" role="tab">
+                                    {{/ifEquals}}
+
+                                    <i class="fas fa-clipboard-check"></i>
+                                    <span style="top: 3px; padding: 2px 4px; background-color: red; color: white;" class="badge bg-danger rounded-pill position-absolute">{{count_order_quoted}}</span>
+                                    <span class="d-none d-sm-block">Đã báo giá</span>
+                                </a>
+                        </li>
+                        <li class="nav-item">
+                            {{#ifEquals status "shipping"}}
+                            <a class="nav-link active" href="./list_order?status=shipping" role="tab">
+                                {{else}}
+                                <a class="nav-link" href="./list_order?status=shipping" role="tab">
+                                    {{/ifEquals}}
+
+                                    <i class="fas fa-shipping-fast"></i>
+                                    <span style="top: 3px; padding: 2px 4px; background-color: red; color: white;" class="badge bg-danger rounded-pill position-absolute">{{count_order_shipping}}</span>
+                                    <span class="d-none d-sm-block">Đang giao</span>
+                                </a>
+                        </li>
+                        <li class="nav-item">
+                            {{#ifEquals status "success"}}
+                            <a class="nav-link active" href="./list_order?status=success" role="tab">
+                                {{else}}
+                                <a class="nav-link" href="./list_order?status=success" role="tab">
+                                    {{/ifEquals}}
+                                    <i class="fas fa-chevron-circle-down"></i>
+                                    <span class="d-none d-sm-block">Đã giao</span>
+                                </a>
+                        </li>
+                        <li class="nav-item">
+                            {{#ifEquals status "cancle"}}
+                            <a class="nav-link active" href="./list_order?status=cancel" role="tab">
+                                {{else}}
+                                <a class="nav-link" href="./list_order?status=cancel" role="tab">
+                                    {{/ifEquals}}
+                                    <i class="far fa-calendar-times"></i>
+                                    
+                                    <span class="d-none d-sm-block">Đã Hủy</span>
+                                </a>
+                        </li>
+                    </ul>
+                </div>
+                <table id="datatable" class="table table-bordered dt-responsive  nowrap w-100">
+                    <thead>
+                        <tr style="text-align:center;">
+                            <th>ID</th>
+                            <th>Ngày tạo</th>
+                            <th>Link sản phẩm</th>
+                            <th>Trạng thái giao hàng</th>
+                            <th>Trạng thái thanh toán</th>
+                            <th>Xem</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {{#if my_order}}
+                    {{#each my_order}}
+                        <tr style="text-align:center;">
+                            <td>{{this.nanoId}}</td>
+                            <td>{{formatDate this.createdAt format}}</td>
+                             <td style="word-break: break-all">
+                                <ul>
+                                    {{#each this.products}}
+                                    <li style=" overflow: auto;text-align: left;">
+                                        <a target="_blank" href="{{this.link}}">
+                                            <p style="width: 140px;
+    overflow: hidden;
+    white-space: nowrap; 
+    text-overflow: ellipsis;">{{this.link}}</p>
+                                        </a>
+                                    </li>
+                                    {{/each}}
+                                </ul>
+                            </td>
+                            <td class="{{this.status_checkout}}"></td>
+                            <td class="{{this.status}}"></td>
+                            <td>
+                                <a class="btn btn-success waves-light " target="_blank" href="./view_detail?id={{this._id}}">
+                                     <i class=" fas fa-bullseye font-size-14"></i> Xem
+                                </a>
+                            </td>
+                        </tr>
+                    {{/each}}
+                    {{else}}
+                    <h5 style="color:red">Bạn chưa có đơn hàng nào </h5>
+                    {{/if}}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="/assets/libs/jquery/jquery.min.js"></script>
+<script src="/js/status_checkout.js"></script>
+<script src="/js/status_checkout.js"></script>
+<script  src="/js/list_order.js"></script>

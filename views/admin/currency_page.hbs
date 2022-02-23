@@ -1,0 +1,69 @@
+<div class="row">
+    <div class="col-12">
+        <p style="display: none" id="getid">{{currency._id }}</p>
+        <div class="modal fade " id="update_current" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">+ Sửa đổi tỷ giá</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="add_address">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="mb-2">
+                                        <label for="exchangerate">Tỷ giá</label>
+                                        <input id="update_exchangerate_price" name="exchangerate" value="{{currency.price}}" type="number" step="0.01"
+                                            class="form-control exchangerate">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                        <button type="button" id="update_exchangerate" class="btn btn-primary">Sửa</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Tỷ giá tiền tệ</h4>
+                <p class="card-title-desc">Dựa vào số tiền mặt hàng để quy đổi</p>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-editable table-nowrap align-middle table-edits">
+                        <thead>
+                            <tr style="text-align: center;">
+
+                                <th>Ngày sửa đổi</th>
+                                <th>Số tiền đã quy đổi (VNĐ)</th>
+                                <th>Sửa</th>
+                            </tr>
+                        </thead>
+
+                        <tbody >
+                            <tr style="text-align: center;">
+                                <td data-field="id">{{formatDateViewDetail currency.updatedAt}}</td>
+                                <td data-field="price">{{currency.price}} VNĐ</td>
+                                <td >
+                                    <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                    data-bs-target="#update_current" data-bs-whatever="@getbootstrap">Cập nhật tỷ giá</button> 
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+        
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->
+                        
+
+
+<script src="/js/jquery-3.6.0.min.js"></script>
+<script src="/js/currency.js"></script>

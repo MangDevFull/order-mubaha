@@ -1,0 +1,180 @@
+<!--Start profile page-->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <p id="getid" style="display: none;">{{data._id}}</p>
+                <h1 class="card-title">Hồ sơ của nhân viên {{data.fullname}}</h1>
+                <p class="card-description">Quản lý thông tin hồ sơ để bảo mật tài khoản</p>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-8 col-md-6">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <div class="form-group mb-3">
+                                    <label>Họ và tên</label>
+                                    <input type="text" name="us" value="{{data.fullname}}" id="fullname"
+                                        class="form-control" readonly="true" />
+                                </div>
+                            </div>
+                             <div class="col-xl-6 col-md-6">
+                                <div class="form-group mb-3">
+                                    <label>Số điện thoại</label>
+                                    <input class="form-control" value="{{data.phone}}" type="tel" value="" id="phone"
+                                        readonly="true">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-6 col-md-6">
+                                <div class="form-group mb-3">
+                                    <label>Email</label>
+                                    <input type="email" value="{{data.email}}" id="email" readonly="true"
+                                        data-pristine--message="Vui lòng nhập email" class="form-control" />
+                                </div>
+                            </div>
+                             <div class="col-xl-6 col-md-6">
+                                <div class="mb-3">
+                                    <label for="example-date-input" class="form-label">Ngày sinh</label>
+                                    <input class="form-control" value="{{formatDateOfBirth data.date_of_birth}}" readonly="true" id="date"
+                                        type="date">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Ngày sinh</label>
+                                <p style="display: none;" id="gend">{{data.gender}}</p>
+                                <div class="d-flex">
+                                    <div class="form-check mb-3" style="margin-right: 5px;">
+                                        <input class="form-check-input" type="radio" value="male" name="gender"
+                                            id="male">
+                                        <label class="form-check-label" for="male">
+                                            Nam
+                                        </label>
+                                    </div>
+                                    <div class="form-check mb-3" style="margin-right: 5px;">
+                                        <input class="form-check-input" type="radio" value="female" name="gender"
+                                            id="female">
+                                        <label class="form-check-label" for="female">
+                                            Nữ
+                                        </label>
+                                    </div>
+                                    <div class="form-check mb-3" style="margin-right: 5px;">
+                                        <input class="form-check-input" type="radio" value="other" name="gender"
+                                            id="other">
+                                        <label class="form-check-label" for="other">
+                                            Khác
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{#if data.updatedAt}}
+                        <p>Ngày cập nhật gần nhất: {{formatDateViewDetail data.updatedAt}} </p>
+                        {{else}}
+                        <p style="color: orange">Thông tin chưa được cập nhật lần nào</p>
+                        {{/if}}
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <p style="text-align:center;" class="form-check-label">Ảnh đại diện</p>
+                        <br>
+                        <div class="flex-shrink-0">
+                            <div class="avatar center">
+                                <img src="/assets/images/users/avatar-3.jpg" alt=""
+                                    class="img-fluid rounded-circle d-block img-thumbnail  ">
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <!-- end row -->
+            </div>
+            <!-- end col -->
+        </div>
+        <div class="form-group">
+
+        </div>
+        <!-- Static Backdrop modal Button -->
+        <button type="button" class="btn btn-danger waves-effect waves-light" data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop">
+            Xóa nhân viên
+        </button>
+        <button type="button" id="update" class="btn btn-warning waves-effect waves-light">
+            Cập nhật
+        </button>
+        <div class="modal fade" id="ignismyModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    </div>
+
+                    <div class="modal-body">
+
+                        <div class="thank-you-pop">
+                            <img src="/img/Green-Round-Tick.png" alt="">
+                            <h1>Cập nhật thông tin thành công</h1>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- Static Backdrop Modal -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Hãy chú ý</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Bạn sẽ xóa đi vĩnh viễn nhân viên đó. Bạn có muốn xóa không</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Hủy</button>
+                        <button type="button" class="btn btn-danger" id="delete">Xóa</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade bs-example-modal-lg" id="show_error" tabindex="-1" role="dialog"
+            aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myLargeModalLabel">Lỗi cập nhật nhân viên</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p class="mb-0">Email của nhân viên đã được sử dụng</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Đóng</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        <div class="modal fade bs-example-modal-lg" id="show_success" tabindex="-1" role="dialog"
+            aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myLargeModalLabel">Xóa thành công staff</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p class="mb-0">Đang quay lại trang quản trị nhân viên</p>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    </div>
+</div>
+
+<!-- end profile page -->
+<script src="/assets/libs/jquery/jquery.min.js"></script>
+<script src="/js/profile.staff.js"></script>
